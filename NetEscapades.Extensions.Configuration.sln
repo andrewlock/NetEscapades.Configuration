@@ -12,6 +12,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetEscapades.Extensions.Configuration.Yaml", "src\NetEscapades.Extensions.Configuration.Yaml\NetEscapades.Extensions.Configuration.Yaml.xproj", "{5450095E-9125-4303-A598-C1AB0736AF51}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{EC37A461-F687-42DB-B1D8-7DDB54B8755D}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetEscapades.Extensions.Configuration.Tests.Common", "test\NetEscapades.Extensions.Configuration.Tests.Common\NetEscapades.Extensions.Configuration.Tests.Common.xproj", "{455A899B-70C9-4A29-987D-06125F48724B}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetEscapades.Extensions.Configuration.Yaml.Tests", "test\NetEscapades.Extensions.Configuration.Yaml.Tests\NetEscapades.Extensions.Configuration.Yaml.Tests.xproj", "{536B918A-B0B2-43E2-B182-D40ADAB0F44B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,11 +28,21 @@ Global
 		{5450095E-9125-4303-A598-C1AB0736AF51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5450095E-9125-4303-A598-C1AB0736AF51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5450095E-9125-4303-A598-C1AB0736AF51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{455A899B-70C9-4A29-987D-06125F48724B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{455A899B-70C9-4A29-987D-06125F48724B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{455A899B-70C9-4A29-987D-06125F48724B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{455A899B-70C9-4A29-987D-06125F48724B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{536B918A-B0B2-43E2-B182-D40ADAB0F44B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{536B918A-B0B2-43E2-B182-D40ADAB0F44B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{536B918A-B0B2-43E2-B182-D40ADAB0F44B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{536B918A-B0B2-43E2-B182-D40ADAB0F44B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5450095E-9125-4303-A598-C1AB0736AF51} = {38724ECE-2125-4F0C-B200-193A1D3F2466}
+		{455A899B-70C9-4A29-987D-06125F48724B} = {EC37A461-F687-42DB-B1D8-7DDB54B8755D}
+		{536B918A-B0B2-43E2-B182-D40ADAB0F44B} = {EC37A461-F687-42DB-B1D8-7DDB54B8755D}
 	EndGlobalSection
 EndGlobal
