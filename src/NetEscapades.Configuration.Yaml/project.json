@@ -1,8 +1,25 @@
 ﻿{
     "version": "1.0.0-beta-*",
+    "description": "YAML configuration provider implementation to use with Microsoft.Extensions.Configuration.",
+    "packOptions": {
+        "owners": [
+            "Andrew Lock"
+        ],
+        "licenseUrl": "https://github.com/andrewlock/NetEscapades.Configuration/blob/master/LICENSE",
+        "projectUrl": "https://github.com/andrewlock/NetEscapades.Configuration/tree/master/src/NetEscapades.Configuration.Yaml",
+        "repository": {
+            "type": "git",
+            "url": "https://github.com/andrewlock/NetEscapades.Configuration"
+        },
+        "tags": [
+            "configuration",
+            "yaml",
+            "yml"
+        ]
+    },
     "dependencies": {
-        "Microsoft.Extensions.Configuration": "1.0.0-rc2-final",
-        "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0-rc2-final",
+        "Microsoft.Extensions.Configuration": "1.0.0-*",
+        "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0-*",
         "YamlDotNet": "3.9.0"
     },
     "frameworks": {
