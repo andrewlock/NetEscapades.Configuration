@@ -22,12 +22,12 @@ namespace NetEscapades.Extensions.Configuration.Yaml
         public void LoadKeyValuePairsFromValidYaml()
         {
             var yaml = @"
-firstname: test
-test.last.name: last.name
-residential.address: 
- street.name: Something street
- zipcode: '12345'
-";
+                firstname: test
+                test.last.name: last.name
+                residential.address: 
+                  street.name: Something street
+                  zipcode: '12345'
+                ";
             var yamlConfigSrc = LoadProvider(yaml);
 
             Assert.Equal("test", yamlConfigSrc.Get("firstname"));
@@ -64,8 +64,8 @@ residential.address:
                         name: test
                         # Comments
                         address: 
-                         street: Something street # Comments
-                         zipcode: '12345'
+                          street: Something street # Comments
+                          zipcode: '12345'
                     ";
             var yamlConfigSrc = LoadProvider(yaml);
             Assert.Equal("test", yamlConfigSrc.Get("name"));
@@ -79,9 +79,9 @@ residential.address:
             var yaml = @"
                         name: test
                         address: 
-                         # Can't start scalar values with unclosed {
-                         street: {Something street
-                         zipcode: '12345'
+                          # Can't start scalar values with unclosed {
+                          street: {Something street
+                          zipcode: '12345'
                          ";
             var exception = Assert.Throws<FormatException>(() => LoadProvider(yaml));
             Assert.NotNull(exception.Message);
@@ -93,8 +93,8 @@ residential.address:
             var yaml = @"
                         name: test
                         address: 
-                         street: Something street
-                         zipcode: '12345'
+                          street: Something street
+                          zipcode: '12345'
                         # Can't start left value with {
                         {phone: mobile 
                          ";
