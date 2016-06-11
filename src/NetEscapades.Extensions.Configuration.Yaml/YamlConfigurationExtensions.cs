@@ -3,10 +3,10 @@
 
 using System;
 using System.IO;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
-using NetEscapades.Extensions.Configuration.Yaml;
 
-namespace Microsoft.Extensions.Configuration
+namespace NetEscapades.Extensions.Configuration.Yaml
 {
     /// <summary>
     /// Extension methods for adding <see cref="YamlConfigurationExtensions"/>.
@@ -33,7 +33,7 @@ namespace Microsoft.Extensions.Configuration
         /// <see cref="IConfigurationBuilder.Properties"/> of <paramref name="builder"/>.</param>
         /// <param name="optional">Whether the file is optional.</param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public static IConfigurationBuilder AddJsonFile(this IConfigurationBuilder builder, string path, bool optional)
+        public static IConfigurationBuilder AddYamlFile(this IConfigurationBuilder builder, string path, bool optional)
         {
             return AddYamlFile(builder, provider: null, path: path, optional: optional, reloadOnChange: false);
         }
