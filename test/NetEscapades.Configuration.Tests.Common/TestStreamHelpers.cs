@@ -6,7 +6,7 @@ using System.IO;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 
-namespace NetEscapades.Extensions.Configuration.Tests.Common
+namespace NetEscapades.Configuration.Tests.Common
 {
     public static class TestStreamHelpers
     {

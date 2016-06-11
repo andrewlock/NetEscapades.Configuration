@@ -1,4 +1,4 @@
-namespace NetEscapades.Extensions.Configuration.Yaml
+namespace NetEscapades.Configuration.Yaml
 {
     public static class Resources
     {

@@ -6,7 +6,7 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 
-namespace NetEscapades.Extensions.Configuration.Yaml
+namespace NetEscapades.Configuration.Yaml
 {
     public class YamlConfigurationExtensionsTest
     {

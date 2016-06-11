@@ -6,7 +6,7 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 
-namespace NetEscapades.Extensions.Configuration.Yaml
+namespace NetEscapades.Configuration.Yaml
 {
     /// <summary>
     /// Extension methods for adding <see cref="YamlConfigurationExtensions"/>.

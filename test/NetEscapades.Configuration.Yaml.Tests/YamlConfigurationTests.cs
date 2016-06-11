@@ -4,10 +4,10 @@
 using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
-using NetEscapades.Extensions.Configuration.Tests.Common;
+using NetEscapades.Configuration.Tests.Common;
 using Xunit;
 
-namespace NetEscapades.Extensions.Configuration.Yaml
+namespace NetEscapades.Configuration.Yaml
 {
     public class YamlConfigurationTest
     {

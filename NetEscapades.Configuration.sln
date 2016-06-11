@@ -10,13 +10,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetEscapades.Extensions.Configuration.Yaml", "src\NetEscapades.Extensions.Configuration.Yaml\NetEscapades.Extensions.Configuration.Yaml.xproj", "{5450095E-9125-4303-A598-C1AB0736AF51}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetEscapades.Configuration.Yaml", "src\NetEscapades.Configuration.Yaml\NetEscapades.Configuration.Yaml.xproj", "{5450095E-9125-4303-A598-C1AB0736AF51}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{EC37A461-F687-42DB-B1D8-7DDB54B8755D}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetEscapades.Extensions.Configuration.Tests.Common", "test\NetEscapades.Extensions.Configuration.Tests.Common\NetEscapades.Extensions.Configuration.Tests.Common.xproj", "{455A899B-70C9-4A29-987D-06125F48724B}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetEscapades.Configuration.Tests.Common", "test\NetEscapades.Configuration.Tests.Common\NetEscapades.Configuration.Tests.Common.xproj", "{455A899B-70C9-4A29-987D-06125F48724B}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetEscapades.Extensions.Configuration.Yaml.Tests", "test\NetEscapades.Extensions.Configuration.Yaml.Tests\NetEscapades.Extensions.Configuration.Yaml.Tests.xproj", "{536B918A-B0B2-43E2-B182-D40ADAB0F44B}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetEscapades.Configuration.Yaml.Tests", "test\NetEscapades.Configuration.Yaml.Tests\NetEscapades.Configuration.Yaml.Tests.xproj", "{536B918A-B0B2-43E2-B182-D40ADAB0F44B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

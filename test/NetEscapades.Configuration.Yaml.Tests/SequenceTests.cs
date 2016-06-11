@@ -3,10 +3,10 @@
 
 using System.Linq;
 using Microsoft.Extensions.Configuration;
-using NetEscapades.Extensions.Configuration.Tests.Common;
+using NetEscapades.Configuration.Tests.Common;
 using Xunit;
 
-namespace NetEscapades.Extensions.Configuration.Yaml.Tests
+namespace NetEscapades.Configuration.Yaml.Tests
 {
     public class SequenceTests
     {

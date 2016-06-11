@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 
-namespace NetEscapades.Extensions.Configuration.Tests.Common
+namespace NetEscapades.Configuration.Tests.Common
 {
     public static class ConfigurationProviderExtensions
     {

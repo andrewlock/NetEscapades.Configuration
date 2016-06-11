@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 
-namespace NetEscapades.Extensions.Configuration.Yaml
+namespace NetEscapades.Configuration.Yaml
 {
     /// <summary>
     /// A YAML file based <see cref="FileConfigurationProvider"/>.

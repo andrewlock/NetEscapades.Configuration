@@ -7,8 +7,8 @@
   
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>455a899b-70c9-4a29-987d-06125f48724b</ProjectGuid>
-    <RootNamespace>NetEscapades.Extensions.Configuration.Tests.Common</RootNamespace>
+    <ProjectGuid>536b918a-b0b2-43e2-b182-d40adab0f44b</ProjectGuid>
+    <RootNamespace>NetEscapades.Configuration.Yaml.Tests</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
   </PropertyGroup>
