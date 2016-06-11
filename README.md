@@ -1,5 +1,4 @@
 # NetEscapades.Configuration
-===
 
 [![Build status](https://ci.appveyor.com/api/projects/status/9klf04bxncm2pgm4?svg=true)](https://ci.appveyor.com/project/andrewlock/netescapades-configuration)
 [![Travis](https://img.shields.io/travis/andrewlock/NetEscapades.Configuration.svg?maxAge=3600&label=travis)](https://travis-ci.org/andrewlock/NetEscapades.Configuration)
@@ -10,7 +9,7 @@ Additional configuration providers to use with ASP.NET Core `Microsoft.Extension
 
 ## YAML configuration provider 
 
-A yaml configuration provider that uses [YamlDotNet](https://github.com/aaubry/YamlDotNet) to load and parse your YAML files.
+A YAML configuration provider that uses [YamlDotNet](https://github.com/aaubry/YamlDotNet) to load and parse your YAML files.
 
 ### Installing 
 
