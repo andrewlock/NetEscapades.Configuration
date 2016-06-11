@@ -1,0 +1,42 @@
+{
+  "buildOptions": {
+    "warningsAsErrors": true
+  },
+  "dependencies": {
+    "dotnet-test-xunit": "1.0.0-rc2-*",
+    "NetEscapades.Extensions.Configuration.Yaml": {
+      "version": "1.0.0-*",
+      "target": "project"
+    },
+    "NetEscapades.Extensions.Configuration.Tests.Common": {
+      "version": "1.0.0-*",
+      "target": "project"
+    },
+    "xunit": "2.1.0"
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "version": "1.0.0-rc2-3002702",
+          "type": "platform"
+        },
+        "System.Diagnostics.Process": "4.1.0-*"
+      },
+      "imports": [
+        "dnxcore50",
+        "portable-net451+win8"
+      ]
+    },
+    "net451": {
+      "frameworkAssemblies": {
+        "System.Runtime": "",
+        "System.Threading.Tasks": ""
+      },
+      "dependencies": {
+        "xunit.runner.console": "2.1.0"
+      }
+    }
+  },
+  "testRunner": "xunit"
+}
