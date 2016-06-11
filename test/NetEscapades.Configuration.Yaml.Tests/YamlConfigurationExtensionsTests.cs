@@ -4,11 +4,12 @@
 using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
+using NetEscapades.Configuration.Yaml;
 using Xunit;
 
 namespace NetEscapades.Configuration.Yaml
 {
-    public class YamlConfigurationExtensionsTest
+    public class YamlConfigurationExtensionsTests
     {
         [Theory]
         [InlineData(null)]

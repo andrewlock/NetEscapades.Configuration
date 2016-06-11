@@ -3,10 +3,10 @@
 
 using System;
 using System.IO;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
+using NetEscapades.Configuration.Yaml;
 
-namespace NetEscapades.Configuration.Yaml
+namespace Microsoft.Extensions.Configuration
 {
     /// <summary>
     /// Extension methods for adding <see cref="YamlConfigurationExtensions"/>.
