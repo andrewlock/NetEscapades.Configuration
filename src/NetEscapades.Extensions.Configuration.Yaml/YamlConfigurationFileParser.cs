@@ -40,7 +40,7 @@ namespace NetEscapades.Extensions.Configuration.Yaml
             {
                 VisitYamlMappingNode((YamlScalarNode)yamlNodePair.Key, (YamlMappingNode)yamlNodePair.Value);
             }
-            if(yamlNodePair.Value is YamlSequenceNode)
+            if (yamlNodePair.Value is YamlSequenceNode)
             {
                 VisitYamlSequenceNode((YamlScalarNode)yamlNodePair.Key, (YamlSequenceNode)yamlNodePair.Value);
             }
@@ -81,7 +81,7 @@ namespace NetEscapades.Extensions.Configuration.Yaml
 
         private void VisitYamlSequenceNode(YamlScalarNode yamlKey, YamlSequenceNode yamlValue)
         {
-            //a node with an associated sub-document
+            //a node with an associated list
             EnterContext(yamlKey.Value);
 
             VisitYamlSequenceNode(yamlValue);
@@ -92,12 +92,14 @@ namespace NetEscapades.Extensions.Configuration.Yaml
 
         private void VisitYamlSequenceNode(YamlSequenceNode node)
         {
-            foreach (var entry in node.Children)
+            for (int i = 0; i < node.Children.Count; i++)
             {
-                if (entry is YamlMappingNode)
-                {
-                    VisitYamlMappingNode((YamlMappingNode)entry);
-                }
+                var entry = node.Children[i];
+                //create a dummy scalar node for providing the context
+                var dummyNode = new YamlScalarNode(i.ToString());
+                var nodePair = new KeyValuePair<YamlNode, YamlNode>(dummyNode, entry);
+
+                VisitYamlNodePair(nodePair);
             }
         }
 
