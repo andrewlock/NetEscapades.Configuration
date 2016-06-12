@@ -26,7 +26,7 @@ When you install the package, it should be added to your `package.json`. Alterna
 ```json
 {
   "dependencies" : {
-    "NetEscapades.Configuration.Yaml": "1.0.0"
+    "NetEscapades.Configuration.Yaml": "1.0.3"
   }
 }
 ```
