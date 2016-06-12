@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
+using YamlDotNet.Core;
 
 namespace NetEscapades.Configuration.Yaml
 {
@@ -18,9 +19,9 @@ namespace NetEscapades.Configuration.Yaml
             {
                 Data = parser.Parse(stream);
             }
-            catch (Exception e)
+            catch (YamlException e)
             {
-                throw new FormatException(Resources.FormatError_YamlParseError(e));
+                throw new FormatException(Resources.FormatError_YamlParseError(e.Message), e);
             }
         }
     }
