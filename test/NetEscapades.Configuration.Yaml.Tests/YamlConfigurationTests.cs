@@ -73,6 +73,21 @@ namespace NetEscapades.Configuration.Yaml
             Assert.Equal("12345", yamlConfigSrc.Get("address:zipcode"));
         }
 
+
+        [Fact]
+        public void ReturnEmptyConfigWhenFileIsEmpty()
+        {
+            var yaml = @"";
+
+            var yamlConfigSrc = new YamlConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml) };
+
+            var configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.Add(yamlConfigSrc);
+            var config = configurationBuilder.Build();
+
+            Assert.Empty(config.AsEnumerable());
+        }
+
         [Fact]
         public void ThrowExceptionWhenUnexpectedFirstCharacterInScalarValue()
         {
@@ -88,7 +103,7 @@ namespace NetEscapades.Configuration.Yaml
         }
 
         [Fact]
-        public void ThrowExceptionWhenUnexpectedEndFoundBeforeFinishParsing()
+        public void ThrowExceptionWhenUnexpectedFirstCharacterInKeyValue()
         {
             var yaml = @"
                         name: test
@@ -97,6 +112,17 @@ namespace NetEscapades.Configuration.Yaml
                           zipcode: '12345'
                         # Can't start left value with {
                         {phone: mobile 
+                         ";
+            var exception = Assert.Throws<FormatException>(() => LoadProvider(yaml));
+            Assert.NotNull(exception.Message);
+        }
+
+        [Fact]
+        public void ThrowExceptionWhenUnexpectedEndOfFile()
+        {
+            var yaml = @"
+                        name: test
+                        address 
                          ";
             var exception = Assert.Throws<FormatException>(() => LoadProvider(yaml));
             Assert.NotNull(exception.Message);
@@ -136,12 +162,6 @@ namespace NetEscapades.Configuration.Yaml
         public void YamlConfiguration_Does_Not_Throw_On_Optional_Configuration()
         {
             var config = new ConfigurationBuilder().AddYamlFile("NotExistingConfig.Yaml", optional: true).Build();
-        }
-
-        [Fact]
-        public void ThrowFormatExceptionWhenFileIsEmpty()
-        {
-            var exception = Assert.Throws<FormatException>(() => LoadProvider(@""));
         }
     }
 }

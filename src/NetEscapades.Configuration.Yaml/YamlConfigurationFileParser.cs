@@ -22,11 +22,13 @@ namespace NetEscapades.Configuration.Yaml
             var yaml = new YamlStream();
             yaml.Load(new StreamReader(input));
 
-            // Examine the stream
-            var mapping = (YamlMappingNode)yaml.Documents[0].RootNode;
+            if (yaml.Documents.Any())
+            {
+                var mapping = (YamlMappingNode)yaml.Documents[0].RootNode;
 
-            // The document node is a mapping node
-            VisitYamlMappingNode(mapping);
+                // The document node is a mapping node
+                VisitYamlMappingNode(mapping);
+            }
 
             return _data;
         }
