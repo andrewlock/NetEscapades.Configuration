@@ -20,7 +20,7 @@ namespace NetEscapades.Configuration.Yaml
             }
             catch (Exception e)
             {
-                throw new FormatException(string.Format(Resources.Error_YamlParseError, e));
+                throw new FormatException(Resources.FormatError_YamlParseError(e));
             }
         }
     }

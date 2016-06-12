@@ -70,7 +70,7 @@ namespace Microsoft.Extensions.Configuration
             }
             if (string.IsNullOrEmpty(path))
             {
-                throw new ArgumentException(Resources.Error_InvalidFilePath, nameof(path));
+                throw new ArgumentException(Resources.FormatError_InvalidFilePath(), nameof(path));
             }
 
             if (provider == null && Path.IsPathRooted(path))
