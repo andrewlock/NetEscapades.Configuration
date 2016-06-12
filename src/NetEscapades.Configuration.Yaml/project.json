@@ -1,5 +1,5 @@
 ﻿{
-    "version": "1.0.2-beta-*",
+    "version": "1.0.2",
     "description": "YAML configuration provider implementation to use with Microsoft.Extensions.Configuration.",
     "packOptions": {
         "owners": [
