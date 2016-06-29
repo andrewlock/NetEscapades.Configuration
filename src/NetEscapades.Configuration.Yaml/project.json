@@ -1,5 +1,5 @@
 ﻿{
-    "version": "1.0.3",
+    "version": "1.1.0",
     "description": "YAML configuration provider implementation to use with Microsoft.Extensions.Configuration.",
     "packOptions": {
         "owners": [
@@ -18,8 +18,8 @@
         ]
     },
     "dependencies": {
-        "Microsoft.Extensions.Configuration": "1.0.0-*",
-        "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0-*",
+        "Microsoft.Extensions.Configuration": "1.0.0",
+        "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0",
         "YamlDotNet": "3.9.0"
     },
     "frameworks": {
@@ -32,9 +32,9 @@
         },
         "netstandard1.3": {
             "dependencies": {
-                "System.Dynamic.Runtime": "4.0.11-*",
-                "System.IO.FileSystem": "4.0.1-*",
-                "System.Runtime.Serialization.Primitives": "4.1.1-*"
+                "System.Dynamic.Runtime": "4.0.11",
+                "System.IO.FileSystem": "4.0.1",
+                "System.Runtime.Serialization.Primitives": "4.1.1"
             },
             "imports": [
                 "portable-net451+win8"
