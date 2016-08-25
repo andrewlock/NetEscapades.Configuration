@@ -1,0 +1,44 @@
+{
+    "version": "0.1.0",
+    "description": "Remote configuration provider implementation to use with Microsoft.Extensions.Configuration for loading settings from a remote source",
+    "packOptions": {
+        "owners": [
+            "Andrew Lock"
+        ],
+        "licenseUrl": "https://github.com/andrewlock/NetEscapades.Configuration/blob/master/LICENSE",
+        "projectUrl": "https://github.com/andrewlock/NetEscapades.Configuration/tree/master/src/NetEscapades.Configuration.Remote",
+        "repository": {
+            "type": "git",
+            "url": "https://github.com/andrewlock/NetEscapades.Configuration"
+        },
+        "tags": [
+            "configuration",
+            "remote"
+        ]
+    },
+    "dependencies": {
+        "Microsoft.Extensions.Configuration": "1.0.0",
+        "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0",
+        "Newtonsoft.Json": "9.0.1"
+    },
+    "frameworks": {
+        "net451": {
+            "frameworkAssemblies": {
+                "System.Runtime": {
+                    "type": "build"
+                }
+            },
+            "dependencies": {
+                "System.Net.Http": "4.0.0"
+            }
+        },
+        "netstandard1.3": {
+            "dependencies": {
+                "System.Net.Http": "4.1.0"
+            },
+            "imports": [
+                "portable-net451+win8"
+            ]
+        }
+    }
+}
