@@ -7,17 +7,25 @@ namespace NetEscapades.Configuration.Remote
     public class RemoteConfigurationEvents
     {
         /// <summary>
-        /// Called before the HttpRequestMessage is sent
+        /// Called before the <see cref="HttpRequestMessage" /> is sent to allow customising the request
         /// </summary>
         public Action<HttpRequestMessage> OnSendingRequest { get; set; } = msg => { };
 
         /// <summary>
-        /// Called after the data has been parsed
+        /// Called after the data has been parsed allows complete replacement of the data returned.
+        /// Should return a case insensitive dictionary using <see cref="StringComparer.OrdinalIgnoreCase" />
         /// </summary>
-        public Action<IDictionary<string, string>> OnDataParsed { get; set; } = data => { };
+        public Func<IDictionary<string, string>, IDictionary<string, string>> OnDataParsed { get; set; } = data => data;
 
-        public void SendingRequest(HttpRequestMessage msg) => OnSendingRequest(msg);
+        /// <summary>
+        /// Called before the <see cref="HttpRequestMessage" /> is sent to allow customising the request
+        /// </summary>
+        public virtual void SendingRequest(HttpRequestMessage msg) => OnSendingRequest(msg);
 
-        public void DataParsed(IDictionary<string, string> data) => OnDataParsed(data);
+        /// <summary>
+        /// Called after the data has been parsed allows complete replacement of the data returned.
+        /// Should return a case insensitive dictionary using <see cref="StringComparer.OrdinalIgnoreCase" />
+        /// </summary>
+        public virtual IDictionary<string, string> DataParsed(IDictionary<string, string> data) => OnDataParsed(data);
     }
 }

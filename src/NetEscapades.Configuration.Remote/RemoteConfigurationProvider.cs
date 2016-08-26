@@ -69,8 +69,8 @@ namespace NetEscapades.Configuration.Remote
                     .GetAwaiter()
                     .GetResult())
                 {
-                    Data = Parser.Parse(stream, Source.ConfigurationKeyPrefix?.Trim());
-                    Source.Events.DataParsed(Data);
+                    var data = Parser.Parse(stream, Source.ConfigurationKeyPrefix?.Trim());
+                    Data = Source.Events.DataParsed(data);
                 }
             }
             else

@@ -1,5 +1,5 @@
 {
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Remote configuration provider implementation to use with Microsoft.Extensions.Configuration for loading settings from a remote source",
     "packOptions": {
         "owners": [
