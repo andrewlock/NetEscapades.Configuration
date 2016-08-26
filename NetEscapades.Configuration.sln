@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{38724ECE-2125-4F0C-B200-193A1D3F2466}"
 EndProject
@@ -17,6 +17,10 @@ EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetEscapades.Configuration.Tests.Common", "test\NetEscapades.Configuration.Tests.Common\NetEscapades.Configuration.Tests.Common.xproj", "{455A899B-70C9-4A29-987D-06125F48724B}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetEscapades.Configuration.Yaml.Tests", "test\NetEscapades.Configuration.Yaml.Tests\NetEscapades.Configuration.Yaml.Tests.xproj", "{536B918A-B0B2-43E2-B182-D40ADAB0F44B}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetEscapades.Configuration.Remote", "src\NetEscapades.Configuration.Remote\NetEscapades.Configuration.Remote.xproj", "{3A79B55F-5E88-4ABF-BDE3-98E5F692947E}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetEscapades.Configuration.Remote.Tests", "test\NetEscapades.Configuration.Remote.Tests\NetEscapades.Configuration.Remote.Tests.xproj", "{CDCDACD5-8895-41F9-A020-D34E5F139627}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +40,14 @@ Global
 		{536B918A-B0B2-43E2-B182-D40ADAB0F44B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{536B918A-B0B2-43E2-B182-D40ADAB0F44B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{536B918A-B0B2-43E2-B182-D40ADAB0F44B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A79B55F-5E88-4ABF-BDE3-98E5F692947E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A79B55F-5E88-4ABF-BDE3-98E5F692947E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A79B55F-5E88-4ABF-BDE3-98E5F692947E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A79B55F-5E88-4ABF-BDE3-98E5F692947E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDCDACD5-8895-41F9-A020-D34E5F139627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDCDACD5-8895-41F9-A020-D34E5F139627}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDCDACD5-8895-41F9-A020-D34E5F139627}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDCDACD5-8895-41F9-A020-D34E5F139627}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,5 +56,7 @@ Global
 		{5450095E-9125-4303-A598-C1AB0736AF51} = {38724ECE-2125-4F0C-B200-193A1D3F2466}
 		{455A899B-70C9-4A29-987D-06125F48724B} = {EC37A461-F687-42DB-B1D8-7DDB54B8755D}
 		{536B918A-B0B2-43E2-B182-D40ADAB0F44B} = {EC37A461-F687-42DB-B1D8-7DDB54B8755D}
+		{3A79B55F-5E88-4ABF-BDE3-98E5F692947E} = {38724ECE-2125-4F0C-B200-193A1D3F2466}
+		{CDCDACD5-8895-41F9-A020-D34E5F139627} = {EC37A461-F687-42DB-B1D8-7DDB54B8755D}
 	EndGlobalSection
 EndGlobal
