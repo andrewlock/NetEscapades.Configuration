@@ -19,7 +19,13 @@ namespace NetEscapades.Configuration.Remote
 
         private JsonTextReader _reader;
 
-        public IDictionary<string, string> Parse(Stream input)
+        /// <summary>
+        /// Parse the input stream into a configuration dictionary 
+        /// </summary>
+        /// <param name="input">The stream to parse</param>
+        /// <param name="initialContext">The initial context prefix to add to all keys</param>
+        /// <returns></returns>
+        public IDictionary<string, string> Parse(Stream input, string initialContext)
         {
             try
             {
@@ -29,7 +35,9 @@ namespace NetEscapades.Configuration.Remote
 
                 var jsonConfig = JObject.Load(_reader);
 
+                if (!string.IsNullOrEmpty(initialContext)) { EnterContext(initialContext);}
                 VisitJObject(jsonConfig);
+                if (!string.IsNullOrEmpty(initialContext)) { ExitContext(); }
 
                 return _data;
             }

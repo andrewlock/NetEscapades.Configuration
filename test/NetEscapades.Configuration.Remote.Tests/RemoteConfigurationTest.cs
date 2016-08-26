@@ -17,13 +17,14 @@ namespace NetEscapades.Configuration.Remote
 {
     public class RemoteConfigurationTest
     {
-        private RemoteConfigurationProvider LoadProvider(string json, HttpStatusCode code = HttpStatusCode.OK)
+        private RemoteConfigurationProvider LoadProvider(string json, HttpStatusCode code = HttpStatusCode.OK, string prefix = null)
         {
             var p = new RemoteConfigurationProvider(
                 new RemoteConfigurationSource
                 {
                     BackchannelHttpHandler = CreateServer(json, code),
                     ConfigurationUri = new Uri("http://localhost"),
+                    ConfigurationKeyPrefix = prefix,
                 });
             p.Load();
             return p;
@@ -47,6 +48,53 @@ namespace NetEscapades.Configuration.Remote
             Assert.Equal("last.name", jsonConfigSrc.Get("test.last.name"));
             Assert.Equal("Something street", jsonConfigSrc.Get("residential.address:STREET.name"));
             Assert.Equal("12345", jsonConfigSrc.Get("residential.address:zipcode"));
+        }
+
+        [Fact]
+        public void LoadKeyValuePairsWithPrefixFromValidJson()
+        {
+            var prefix = "theprefix";
+            var json = @"
+{
+    'firstname': 'test',
+    'test.last.name': 'last.name',
+        'residential.address': {
+            'street.name': 'Something street',
+            'zipcode': '12345'
+        },
+     'nickname': 'tesytest',
+}";
+            var jsonConfigSrc = LoadProvider(json, prefix: prefix);
+
+            Assert.Equal("test", jsonConfigSrc.Get("theprefix:firstname"));
+            Assert.Equal("last.name", jsonConfigSrc.Get("theprefix:test.last.name"));
+            Assert.Equal("Something street", jsonConfigSrc.Get("theprefix:residential.address:STREET.name"));
+            Assert.Equal("12345", jsonConfigSrc.Get("theprefix:residential.address:zipcode"));
+            Assert.Equal("tesytest", jsonConfigSrc.Get("theprefix:nickname"));
+        }
+
+        [Fact]
+        public void LoadKeyValuePairsWithComplexPrefixFromValidJson()
+        {
+            var prefix = "theprefix:secondPrefix";
+            var json = @"
+{
+    'firstname': 'test',
+    'test.last.name': 'last.name',
+        'residential.address': {
+            'street.name': 'Something street',
+            'zipcode': '12345'
+        },
+     'nickname': 'tesytest',
+}";
+            var jsonConfigSrc = LoadProvider(json, prefix: prefix);
+
+            Assert.Equal("test", jsonConfigSrc.Get("theprefix:secondPrefix:firstname"));
+            Assert.Equal("last.name", jsonConfigSrc.Get("theprefix:secondPrefix:test.last.name"));
+            Assert.Equal("Something street", jsonConfigSrc.Get("theprefix:secondPrefix:residential.address:STREET.name"));
+            Assert.Equal("12345", jsonConfigSrc.Get("theprefix:secondPrefix:residential.address:zipcode"));
+            Assert.Equal("tesytest", jsonConfigSrc.Get("theprefix:secondPrefix:nickname"));
+            Assert.Equal("tesytest", jsonConfigSrc.Get("theprefix:secondPrefix:nickname"));
         }
 
         [Fact]
@@ -137,6 +185,63 @@ namespace NetEscapades.Configuration.Remote
         public void ThrowFormatExceptionWhenFileIsEmpty()
         {
             var exception = Assert.Throws<FormatException>(() => LoadProvider(@""));
+        }
+
+
+        [Fact]
+        public void AddRemoteSource_ThrowsIfConfigurationPrefixEndsWithColon()
+        {
+            // Arrange
+            var source = new RemoteConfigurationSource
+            {
+                ConfigurationUri = new Uri("http://localhost"),
+                ConfigurationKeyPrefix = "test:",
+            };
+
+            // Act and Assert
+            Assert.Throws<ArgumentException>(() => new RemoteConfigurationProvider(source));
+        }
+
+        [Fact]
+        public void AddRemoteSource_ThrowsIfConfigurationPrefixEndsWithColonAndSpace()
+        {
+            // Arrange
+            var source = new RemoteConfigurationSource
+            {
+                ConfigurationUri = new Uri("http://localhost"),
+                ConfigurationKeyPrefix = "test: ",
+            };
+
+            // Act and Assert
+            Assert.Throws<ArgumentException>(() => new RemoteConfigurationProvider(source));
+        }
+
+        [Fact]
+        public void AddRemoteSource_ThrowsIfConfigurationPrefixStartsWithColonAndSpace()
+        {
+            // Arrange
+            var source = new RemoteConfigurationSource
+            {
+                ConfigurationUri = new Uri("http://localhost"),
+                ConfigurationKeyPrefix = " :test",
+            };
+
+            // Act and Assert
+            Assert.Throws<ArgumentException>(() => new RemoteConfigurationProvider(source));
+        }
+
+        [Fact]
+        public void AddRemoteSource_ThrowsIfConfigurationPrefixStartsWithColon()
+        {
+            // Arrange
+            var source = new RemoteConfigurationSource
+            {
+                ConfigurationUri = new Uri("http://localhost"),
+                ConfigurationKeyPrefix = ":test",
+            };
+
+            // Act and Assert
+            Assert.Throws<ArgumentException>(() => new RemoteConfigurationProvider(source));
         }
 
         private TestHttpMessageHandler CreateServer(object responseObject, HttpStatusCode code = HttpStatusCode.OK)

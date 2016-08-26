@@ -69,6 +69,24 @@ namespace NetEscapades.Configuration.Remote {
         }
         
         /// <summary>
+        ///    Looks up a localized string similar to {0} must not end with &apos;{1}&apos;.
+        /// </summary>
+        public static string Error_InvalidEndCharacter {
+            get {
+                return ResourceManager.GetString("Error_InvalidEndCharacter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to {0} must not start with &apos;{1}&apos;.
+        /// </summary>
+        public static string Error_InvalidStartCharacter {
+            get {
+                return ResourceManager.GetString("Error_InvalidStartCharacter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///    Looks up a localized string similar to Could not parse the JSON file. Error on line number &apos;{0}&apos;: &apos;{1}&apos;..
         /// </summary>
         public static string Error_JSONParseError {

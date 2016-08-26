@@ -16,6 +16,20 @@ namespace NetEscapades.Configuration.Remote
             {
                 throw new ArgumentNullException(nameof(source));
             }
+
+            if (!string.IsNullOrEmpty(source.ConfigurationKeyPrefix))
+            {
+                if (source.ConfigurationKeyPrefix.Trim().StartsWith(":"))
+                {
+                    throw new ArgumentException(string.Format(Resource.Error_InvalidStartCharacter, nameof(source.ConfigurationKeyPrefix), ':'));
+                }
+
+                if (source.ConfigurationKeyPrefix.Trim().EndsWith(":"))
+                {
+                    throw new ArgumentException(string.Format(Resource.Error_InvalidEndCharacter, nameof(source.ConfigurationKeyPrefix), ':'));
+                }
+            }
+
             Source = source;
 
             Backchannel = new HttpClient(source.BackchannelHttpHandler ?? new HttpClientHandler());
@@ -48,11 +62,6 @@ namespace NetEscapades.Configuration.Remote
                 .GetAwaiter()
                 .GetResult();
 
-            var content = response.Content.ReadAsStringAsync()
-                .ConfigureAwait(false)
-                .GetAwaiter()
-                .GetResult();
-
             if (response.IsSuccessStatusCode)
             {
                 using (var stream = response.Content.ReadAsStreamAsync()
@@ -60,7 +69,7 @@ namespace NetEscapades.Configuration.Remote
                     .GetAwaiter()
                     .GetResult())
                 {
-                    Data = Parser.Parse(stream);
+                    Data = Parser.Parse(stream, Source.ConfigurationKeyPrefix?.Trim());
                     Source.Events.DataParsed(Data);
                 }
             }

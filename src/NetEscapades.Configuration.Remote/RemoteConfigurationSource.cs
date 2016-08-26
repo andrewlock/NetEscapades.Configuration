@@ -35,7 +35,15 @@ namespace NetEscapades.Configuration.Remote
         /// </summary>
         public string MediaType { get; set; } = "application/json";
 
+        /// <summary>
+        /// Events providing hooks into the remote call
+        /// </summary>
         public RemoteConfigurationEvents Events { get; set; } = new RemoteConfigurationEvents();
+
+        /// <summary>
+        /// If provided, keys loaded from endpoint will be prefixed with the provided value
+        /// </summary>
+        public string ConfigurationKeyPrefix { get; set; }
 
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         {

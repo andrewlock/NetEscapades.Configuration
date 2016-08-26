@@ -120,6 +120,12 @@
   <data name="Error_HttpError" xml:space="preserve">
     <value>Error calling remote configuration endpoint: {0} - {1}</value>
   </data>
+  <data name="Error_InvalidEndCharacter" xml:space="preserve">
+    <value>{0} must not end with '{1}'</value>
+  </data>
+  <data name="Error_InvalidStartCharacter" xml:space="preserve">
+    <value>{0} must not start with '{1}'</value>
+  </data>
   <data name="Error_JSONParseError" xml:space="preserve">
     <value>Could not parse the JSON file. Error on line number '{0}': '{1}'.</value>
   </data>
