@@ -73,7 +73,7 @@ namespace NetEscapades.Configuration.Remote
                     Data = Source.Events.DataParsed(data);
                 }
             }
-            else
+            else if(!Source.Optional)
             {
                 throw new Exception(string.Format(Resource.Error_HttpError, response.StatusCode, response.ReasonPhrase));
             }

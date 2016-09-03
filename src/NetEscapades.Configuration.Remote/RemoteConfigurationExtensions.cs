@@ -20,6 +20,18 @@ namespace NetEscapades.Configuration.Remote
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
         public static IConfigurationBuilder AddRemoteSource(this IConfigurationBuilder builder, Uri configurationUri)
         {
+            return builder.AddRemoteSource(configurationUri, optional: false);
+        }
+        
+        /// <summary>
+        /// Adds a remote configuration source to <paramref name="builder"/>.
+        /// </summary>
+        /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
+        /// <param name="configurationUri">The remote uri to </param>
+        /// <param name="optional">Whether the remote configuration source is optional.</param>
+        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
+        public static IConfigurationBuilder AddRemoteSource(this IConfigurationBuilder builder, Uri configurationUri, bool optional)
+        {
             if (builder == null)
             {
                 throw new ArgumentNullException(nameof(builder));
@@ -33,6 +45,7 @@ namespace NetEscapades.Configuration.Remote
             var source = new RemoteConfigurationSource
             {
                 ConfigurationUri = configurationUri,
+                Optional = optional, 
             };
 
             return builder.AddRemoteSource(source);
@@ -43,9 +56,10 @@ namespace NetEscapades.Configuration.Remote
         /// </summary>
         /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
         /// <param name="configurationUri">The remote uri to </param>
+        /// <param name="optional">Whether the remote configuration source is optional.</param> 
         /// <param name="events">Events that get add </param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public static IConfigurationBuilder AddRemoteSource(this IConfigurationBuilder builder, Uri configurationUri, RemoteConfigurationEvents events)
+        public static IConfigurationBuilder AddRemoteSource(this IConfigurationBuilder builder, Uri configurationUri, bool optional, RemoteConfigurationEvents events)
         {
             if (builder == null)
             {
@@ -66,11 +80,18 @@ namespace NetEscapades.Configuration.Remote
             {
                 ConfigurationUri = configurationUri,
                 Events = events,
+                Optional = optional,
             };
 
             return builder.AddRemoteSource(source);
         }
 
+        /// <summary>
+        /// Adds a remote configuration source to <paramref name="builder"/>.
+        /// </summary>
+        /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
+        /// <param name="source">The remote configuration source settings</param>
+        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
         public static IConfigurationBuilder AddRemoteSource(this IConfigurationBuilder builder, RemoteConfigurationSource source)
         {
             if (builder == null)

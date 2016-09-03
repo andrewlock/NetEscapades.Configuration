@@ -28,7 +28,7 @@ namespace NetEscapades.Configuration.Remote
             var configurationBuilder = new ConfigurationBuilder();
 
             // Act and Assert
-            var ex = Assert.Throws<ArgumentNullException>(() => configurationBuilder.AddRemoteSource(new Uri("http://localhost"), null));
+            var ex = Assert.Throws<ArgumentNullException>(() => configurationBuilder.AddRemoteSource(new Uri("http://localhost"), false, null));
             Assert.Equal("events", ex.ParamName);
         }
 

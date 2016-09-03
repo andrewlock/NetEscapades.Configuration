@@ -11,6 +11,11 @@ namespace NetEscapades.Configuration.Remote
         /// The uri to call to fetch 
         /// </summary>
         public Uri ConfigurationUri { get; set; }
+    
+        /// <summary>
+        /// Determines if the remote source is optional 
+        /// </summary>
+        public bool Optional { get; set; }
 
         /// <summary>
         /// The HttpMessageHandler used to communicate with remote configuration provider.
