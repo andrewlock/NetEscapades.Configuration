@@ -166,6 +166,26 @@ namespace NetEscapades.Configuration.Remote
         }
 
         [Fact]
+        public void JsonConfiguration_ReturnsEmptyDataWhenOptional_On_404()
+        {
+            //arrange
+            var configBuilder = new ConfigurationBuilder().AddRemoteSource(
+                new RemoteConfigurationSource
+            {
+                BackchannelHttpHandler = CreateServer(string.Empty, HttpStatusCode.NotFound),
+                ConfigurationUri = new Uri("http://localhost"),
+                Optional = true,
+            });
+
+            //act
+            var config = configBuilder.Build();
+
+            //assert
+            Assert.NotNull(config);
+            Assert.Empty(config.AsEnumerable());
+        }
+
+        [Fact]
         public void JsonConfiguration_Throws_On_500()
         {
 
@@ -179,6 +199,26 @@ namespace NetEscapades.Configuration.Remote
 
             // Assert
             Assert.True(exception.Message.StartsWith("Error calling remote configuration endpoint"));
+        }
+
+        [Fact]
+        public void JsonConfiguration_ReturnsEmptyDataWhenOptional_On_500()
+        {
+            //arrange
+            var configBuilder = new ConfigurationBuilder().AddRemoteSource(
+                new RemoteConfigurationSource
+            {
+                BackchannelHttpHandler = CreateServer(string.Empty, HttpStatusCode.InternalServerError),
+                ConfigurationUri = new Uri("http://localhost"),
+                Optional = true,
+            });
+
+            //act
+            var config = configBuilder.Build();
+
+            //assert
+            Assert.NotNull(config);
+            Assert.Empty(config.AsEnumerable());
         }
 
         [Fact]
