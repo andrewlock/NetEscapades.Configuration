@@ -26,9 +26,10 @@ mono \
 
 mono \
 ./test/NetEscapades.Configuration.Remote.Tests/bin/Release/net451/*/dotnet-test-xunit.exe \
-./test/NetEscapades.Configuration.Remote.Tests/bin/Release/net451/*/NetEscapades.Configuration.Yaml.Tests.dll
+./test/NetEscapades.Configuration.Remote.Tests/bin/Release/net451/*/NetEscapades.Configuration.Remote.Tests.dll
 
 revision=${TRAVIS_JOB_ID:=1}
 revision=$(printf "%04d" $revision) 
 
 dotnet pack ./src/NetEscapades.Configuration.Yaml -c Release -o ./artifacts --version-suffix=$revision
+dotnet pack ./src/NetEscapades.Configuration.Remote -c Release -o ./artifacts --version-suffix=$revision
