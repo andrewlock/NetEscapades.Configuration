@@ -3,8 +3,8 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/9klf04bxncm2pgm4?svg=true)](https://ci.appveyor.com/project/andrewlock/netescapades-configuration)
 [![Travis](https://img.shields.io/travis/andrewlock/NetEscapades.Configuration.svg?maxAge=3600&label=travis)](https://travis-ci.org/andrewlock/NetEscapades.Configuration)
 [![NuGet YAML](https://img.shields.io/nuget/v/NetEscapades.Configuration.Yaml.svg)](https://www.nuget.org/packages/NetEscapades.Configuration.Yaml/)
-[![MyGet YAML CI](https://img.shields.io/myget/andrewlock-ci/v/NetEscapades.Configuration.Yaml.svg)](http://myget.org/gallery/andrewlock-ci)
 [![NuGet Remote](https://img.shields.io/nuget/v/NetEscapades.Configuration.Remote.svg)](https://www.nuget.org/packages/NetEscapades.Configuration.Remote/)
+[![MyGet YAML CI](https://img.shields.io/myget/andrewlock-ci/v/NetEscapades.Configuration.Yaml.svg)](http://myget.org/gallery/andrewlock-ci)
 [![MyGet Remote CI](https://img.shields.io/myget/andrewlock-ci/v/NetEscapades.Configuration.Remote.svg)](http://myget.org/gallery/andrewlock-ci)
 
 Additional configuration providers to use with ASP.NET Core `Microsoft.Extensions.Configuration`.
