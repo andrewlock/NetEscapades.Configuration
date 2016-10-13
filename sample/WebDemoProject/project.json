@@ -15,6 +15,9 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "NetEscapades.Configuration.Yaml": {
       "target": "project"
+    },
+    "NetEscapades.Configuration.Remote": {
+      "target": "project"
     }
   },
   "tools": {

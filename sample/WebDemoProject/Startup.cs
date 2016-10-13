@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NetEscapades.Configuration.Remote;
 
 namespace WebDemoProject
 {
@@ -19,7 +20,8 @@ namespace WebDemoProject
                 .AddYamlFile("appsettings.yml", optional: false)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
+                .AddRemoteSource(new Uri("http://localhost:5001/api/configuration"))
+                ;
             Configuration = builder.Build();
         }
 
