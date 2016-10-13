@@ -21,6 +21,7 @@ namespace WebDemoProject
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddRemoteSource(new Uri("http://localhost:5001/api/configuration"))
+                .AddRemoteSource(new Uri("http://localhost:5002/api/configuration"), optional: true)
                 ;
             Configuration = builder.Build();
         }

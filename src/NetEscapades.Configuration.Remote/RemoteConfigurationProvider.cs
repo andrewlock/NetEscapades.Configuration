@@ -57,25 +57,35 @@ namespace NetEscapades.Configuration.Remote
 
             Source.Events.SendingRequest(requestMessage);
 
-            var response = Backchannel.SendAsync(requestMessage)
-                .ConfigureAwait(false)
-                .GetAwaiter()
-                .GetResult();
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                using (var stream = response.Content.ReadAsStreamAsync()
+                var response = Backchannel.SendAsync(requestMessage)
                     .ConfigureAwait(false)
                     .GetAwaiter()
-                    .GetResult())
+                    .GetResult();
+
+                if (response.IsSuccessStatusCode)
                 {
-                    var data = Parser.Parse(stream, Source.ConfigurationKeyPrefix?.Trim());
-                    Data = Source.Events.DataParsed(data);
+                    using (var stream = response.Content.ReadAsStreamAsync()
+                        .ConfigureAwait(false)
+                        .GetAwaiter()
+                        .GetResult())
+                    {
+                        var data = Parser.Parse(stream, Source.ConfigurationKeyPrefix?.Trim());
+                        Data = Source.Events.DataParsed(data);
+                    }
+                }
+                else if (!Source.Optional)
+                {
+                    throw new Exception(string.Format(Resource.Error_HttpError, response.StatusCode, response.ReasonPhrase));
                 }
             }
-            else if(!Source.Optional)
+            catch (Exception)
             {
-                throw new Exception(string.Format(Resource.Error_HttpError, response.StatusCode, response.ReasonPhrase));
+                if (!Source.Optional)
+                {
+                    throw;
+                }
             }
         }
     }
