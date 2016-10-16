@@ -21,8 +21,28 @@ namespace WebDemoProject
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddRemoteSource(new Uri("http://localhost:5001/api/configuration"))
-                .AddRemoteSource(new Uri("http://localhost:5002/api/configuration"), optional: true)
-                ;
+                .AddRemoteSource(new Uri("http://localhost:5001/api/endpoint/does/not/exist"), optional: true)
+                .AddRemoteSource(new Uri("http://localhost:5002/host/does/not/exist"), optional: true)
+                .AddRemoteSource(new RemoteConfigurationSource()
+                {
+                    ConfigurationUri = new Uri("http://localhost:5001/api/configuration"),
+                    ConfigurationKeyPrefix = "anextraprefix",
+                    Events = new RemoteConfigurationEvents
+                    {
+                        OnDataParsed = dict =>
+                        {
+                            var result = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                            foreach (var keyValuePair in dict)
+                            {
+                                if (!string.IsNullOrEmpty(keyValuePair.Value))
+                                {
+                                    result[keyValuePair.Key] = keyValuePair.Value + " is augemented!";
+                                }
+                            }
+                            return result;
+                        }
+                    }
+                });
             Configuration = builder.Build();
         }
 
