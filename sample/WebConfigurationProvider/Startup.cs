@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace WebDemoProject
+namespace WebConfigurationProvider
 {
     public class Startup
     {
@@ -16,7 +16,6 @@ namespace WebDemoProject
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddYamlFile("appsettings.yml", optional: false)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
@@ -30,11 +29,6 @@ namespace WebDemoProject
         {
             // Add framework services.
             services.AddMvc();
-
-            // explicitly inject our config here so we can display it in the values controller
-            // NOTE: This is not the recommended usage in practice, it is just for display purposes
-            // see https://docs.asp.net/en/latest/fundamentals/configuration.html
-            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

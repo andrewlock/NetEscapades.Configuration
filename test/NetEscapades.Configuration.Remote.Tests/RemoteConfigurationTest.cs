@@ -186,6 +186,21 @@ namespace NetEscapades.Configuration.Remote
         }
 
         [Fact]
+        public void JsonConfiguration_ReturnsEmptyDataWhenOptionalUsingOverload_On_404()
+        {
+            //arrange
+            var configBuilder = new ConfigurationBuilder()
+                .AddRemoteSource(new Uri("http://localhost:123"), optional: true);
+
+            //act
+            var config = configBuilder.Build();
+
+            //assert
+            Assert.NotNull(config);
+            Assert.Empty(config.AsEnumerable());
+        }
+
+        [Fact]
         public void JsonConfiguration_Throws_On_500()
         {
 
