@@ -4,6 +4,7 @@
     <Description>Remote configuration provider implementation to use with Microsoft.Extensions.Configuration for loading settings from a remote source</Description>
     <VersionPrefix>1.3.0</VersionPrefix>
     <TargetFrameworks>net451;netstandard1.3</TargetFrameworks>
+    <TargetFrameworks Condition="'$(OS)' != 'Windows_NT'">netstandard1.3</TargetFrameworks>
     <AssemblyName>NetEscapades.Configuration.Remote</AssemblyName>
     <PackageId>NetEscapades.Configuration.Remote</PackageId>
     <PackageTags>configuration;remote</PackageTags>

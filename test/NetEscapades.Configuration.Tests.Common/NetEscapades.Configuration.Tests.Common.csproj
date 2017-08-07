@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net451;netstandard1.5</TargetFrameworks>
+    <TargetFrameworks Condition="'$(OS)' != 'Windows_NT'">netstandard1.5</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>NetEscapades.Configuration.Tests.Common</AssemblyName>
     <PackageId>NetEscapades.Configuration.Tests.Common</PackageId>

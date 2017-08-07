@@ -4,6 +4,7 @@
     <Description>YAML configuration provider implementation to use with Microsoft.Extensions.Configuration.</Description>
     <VersionPrefix>1.3.0</VersionPrefix>
     <TargetFrameworks>net451;netstandard1.3</TargetFrameworks>
+    <TargetFrameworks Condition="'$(OS)' != 'Windows_NT'">netstandard1.3</TargetFrameworks>
     <AssemblyName>NetEscapades.Configuration.Yaml</AssemblyName>
     <PackageId>NetEscapades.Configuration.Yaml</PackageId>
     <PackageTags>configuration;yaml;yml</PackageTags>
