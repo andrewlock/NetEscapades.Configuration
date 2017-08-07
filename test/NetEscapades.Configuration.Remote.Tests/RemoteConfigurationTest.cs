@@ -11,7 +11,6 @@ using NetEscapades.Configuration.Remote.Tests;
 using Newtonsoft.Json;
 using Xunit;
 using NetEscapades.Configuration.Tests.Common;
-using NuGet.Versioning;
 
 namespace NetEscapades.Configuration.Remote
 {
