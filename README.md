@@ -21,7 +21,7 @@ Install using the [NetEscapades.Configuration.Yaml NuGet package](https://www.nu
 PM> Install-Package NetEscapades.Configuration.Yaml
 ```
 
-###Usage 
+### Usage 
 
 When you install the package, it should be added to your `package.json`. Alternatively, you can add it directly by adding:
 
