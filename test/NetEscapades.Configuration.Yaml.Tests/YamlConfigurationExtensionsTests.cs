@@ -33,7 +33,7 @@ namespace NetEscapades.Configuration.Yaml
 
             // Act and Assert
             var ex = Assert.Throws<FileNotFoundException>(() => new ConfigurationBuilder().AddYamlFile(path).Build());
-            Assert.Equal($"The configuration file '{path}' was not found and is not optional.", ex.Message);
+            Assert.True(ex.Message.StartsWith($"The configuration file '{path}' was not found and is not optional."));
         }
     }
 }
