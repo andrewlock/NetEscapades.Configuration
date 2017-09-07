@@ -1,11 +1,9 @@
 language: csharp
 sudo: required
 dist: trusty
-dotnet: 1.0.4
+dotnet: 2.0.0
 os:
   - linux
-  - osx
-osx_image: xcode7.1
 branches:
   only:
     - master
