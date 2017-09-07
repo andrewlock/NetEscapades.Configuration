@@ -1,0 +1,20 @@
+version: 'the value to override'
+innerconfig :
+ first_property: 'the value'
+ second_property: another one
+item: 
+ - a value
+ - another value
+ - the last value
+another_item: 
+ - id: 1
+   value: test
+ - id: 2
+   value: test2 
+nestedlist: 
+- 
+  - first list
+  - first list
+-
+  - second list
+  - second list
