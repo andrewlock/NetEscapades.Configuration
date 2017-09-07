@@ -4,7 +4,6 @@ dist: trusty
 dotnet: 2.0.0
 os:
   - linux
-  - osx
 branches:
   only:
     - master
