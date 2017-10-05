@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="secrets\**" />
+    <Content Remove="secrets\**" />
+    <EmbeddedResource Remove="secrets\**" />
+    <None Remove="secrets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -17,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\NetEscapades.Configuration.KubeSecrets\NetEscapades.Configuration.KubeSecrets.csproj" />
     <ProjectReference Include="..\..\src\NetEscapades.Configuration.Remote\NetEscapades.Configuration.Remote.csproj" />
     <ProjectReference Include="..\..\src\NetEscapades.Configuration.Yaml\NetEscapades.Configuration.Yaml.csproj" />
   </ItemGroup>
