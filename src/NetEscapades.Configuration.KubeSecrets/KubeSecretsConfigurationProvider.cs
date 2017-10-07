@@ -51,7 +51,7 @@ namespace NetEscapades.Configuration.KubeSecrets
             }
 
             var secretsDir = Source.FileProvider.GetDirectoryContents("/");
-            if (!secretsDir.Exists && !Source.Optional)
+            if ((secretsDir == null || secretsDir.Exists == false) && Source.Optional == false)
             {
                 throw new DirectoryNotFoundException("KubeSecrets directory doesn't exist and is not optional.");
             }
