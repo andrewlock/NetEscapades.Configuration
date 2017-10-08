@@ -22,6 +22,13 @@ namespace NetEscapades.Configuration.KubeSecrets.Tests
         }
 
         [Fact]
+        public void ThrowsWhenProviderReturnsNull()
+        {
+            var provider = new NullFileProvider();
+            var error = Assert.Throws<DirectoryNotFoundException>(() => new ConfigurationBuilder().AddKubeSecrets(provider, optional: false).Build());
+        }
+
+        [Fact]
         public void DoesNotThrowWhenOptionalAndNoSecrets()
         {
             new ConfigurationBuilder()
@@ -90,6 +97,24 @@ namespace NetEscapades.Configuration.KubeSecrets.Tests
 
         public IChangeToken Watch(string filter)
             => throw new NotImplementedException();
+    }
+
+    class NullFileProvider : IFileProvider
+    {
+        public IDirectoryContents GetDirectoryContents(string subpath)
+        {
+            return null;
+        }
+
+        public IFileInfo GetFileInfo(string subpath)
+        {
+            return null;
+        }
+
+        public IChangeToken Watch(string filter)
+        {
+            return null;
+        }
     }
 
     class NonExistantDirectory : IDirectoryContents
