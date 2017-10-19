@@ -36,6 +36,25 @@ namespace NetEscapades.Configuration.Remote
             Backchannel.DefaultRequestHeaders.UserAgent.ParseAdd("Remote Confiugration Provider");
             Backchannel.Timeout = source.BackchannelTimeout;
             Backchannel.MaxResponseContentBufferSize = 1024 * 1024 * 10; // 10 MB
+            if (source.AuthenticationType == AuthenticationTypes.Basic)
+            {
+                if (string.IsNullOrEmpty(source.UserName) || string.IsNullOrEmpty(source.Password)) {
+                    throw new ArgumentException("UserName or Password can not be empty or null");
+                }
+                Backchannel.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue(
+                    "Basic",
+                    Convert.ToBase64String(
+                        System.Text.Encoding.ASCII.GetBytes(
+                            string.Format("{0}:{1}", source.UserName, source.Password))));
+            }
+            else if (source.AuthenticationType == AuthenticationTypes.BearerToken)
+            {
+                if (string.IsNullOrEmpty(source.AuthorizatonToken)) {
+                    throw new ArgumentException("AuthorizatonToken can not be null or empty");
+                }
+                Backchannel.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", source.AuthorizatonToken);
+            }            
 
             Parser = source.Parser ?? new JsonConfigurationParser();
         }
