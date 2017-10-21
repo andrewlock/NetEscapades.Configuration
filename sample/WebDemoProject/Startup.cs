@@ -42,6 +42,15 @@ namespace WebDemoProject
                             return result;
                         }
                     }
+                })
+                .AddRemoteSource(new RemoteConfigurationSource() {
+                    ConfigurationUri = new Uri("http://localhost:5001/api/AuthorizeConfiguration"),
+                    // Basic Authentication
+                    AuthenticationType= AuthenticationTypes.Basic,
+                    UserName="username",
+                    Password="password",
+                    Optional = true
+
                 });
             Configuration = builder.Build();
         }

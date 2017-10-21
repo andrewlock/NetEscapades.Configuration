@@ -68,7 +68,7 @@ namespace NetEscapades.Configuration.Remote
         /// <summary>
         /// Authorization bearer token
         /// </summary>
-        public string AuthorizatonToken { get; set; }
+        public string AuthorizationToken { get; set; }
 
 
         public IConfigurationProvider Build(IConfigurationBuilder builder)
@@ -76,6 +76,4 @@ namespace NetEscapades.Configuration.Remote
             return new RemoteConfigurationProvider(this);
         }
     }
-
-    public enum AuthenticationTypes { None, Basic, BearerToken }
 }

@@ -39,7 +39,7 @@ namespace NetEscapades.Configuration.Remote
             if (source.AuthenticationType == AuthenticationTypes.Basic)
             {
                 if (string.IsNullOrEmpty(source.UserName) || string.IsNullOrEmpty(source.Password)) {
-                    throw new ArgumentException("UserName or Password can not be empty or null");
+                    throw new ArgumentException("UserName or Password can not be null or empty");
                 }
                 Backchannel.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue(
@@ -50,10 +50,10 @@ namespace NetEscapades.Configuration.Remote
             }
             else if (source.AuthenticationType == AuthenticationTypes.BearerToken)
             {
-                if (string.IsNullOrEmpty(source.AuthorizatonToken)) {
-                    throw new ArgumentException("AuthorizatonToken can not be null or empty");
+                if (string.IsNullOrEmpty(source.AuthorizationToken)) {
+                    throw new ArgumentException("AuthorizationToken can not be null or empty");
                 }
-                Backchannel.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", source.AuthorizatonToken);
+                Backchannel.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", source.AuthorizationToken);
             }            
 
             Parser = source.Parser ?? new JsonConfigurationParser();
