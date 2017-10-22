@@ -304,7 +304,7 @@ namespace NetEscapades.Configuration.Remote
             var source = new RemoteConfigurationSource
             {
                 ConfigurationUri = new Uri("http://localhost"),
-                AuthenticationType = AuthenticationTypes.Basic
+                AuthenticationType = AuthenticationType.Basic
             };
 
             // Act and Assert
@@ -319,7 +319,7 @@ namespace NetEscapades.Configuration.Remote
             var source = new RemoteConfigurationSource
             {
                 ConfigurationUri = new Uri("http://localhost"),
-                AuthenticationType = AuthenticationTypes.BearerToken
+                AuthenticationType = AuthenticationType.BearerToken
             };
 
             // Act and Assert

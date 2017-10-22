@@ -36,7 +36,7 @@ namespace NetEscapades.Configuration.Remote
             Backchannel.DefaultRequestHeaders.UserAgent.ParseAdd("Remote Confiugration Provider");
             Backchannel.Timeout = source.BackchannelTimeout;
             Backchannel.MaxResponseContentBufferSize = 1024 * 1024 * 10; // 10 MB
-            if (source.AuthenticationType == AuthenticationTypes.Basic)
+            if (source.AuthenticationType == AuthenticationType.Basic)
             {
                 if (string.IsNullOrEmpty(source.UserName) || string.IsNullOrEmpty(source.Password)) {
                     throw new ArgumentException("UserName or Password can not be null or empty");
@@ -48,7 +48,7 @@ namespace NetEscapades.Configuration.Remote
                         System.Text.Encoding.ASCII.GetBytes(
                             string.Format("{0}:{1}", source.UserName, source.Password))));
             }
-            else if (source.AuthenticationType == AuthenticationTypes.BearerToken)
+            else if (source.AuthenticationType == AuthenticationType.BearerToken)
             {
                 if (string.IsNullOrEmpty(source.AuthorizationToken)) {
                     throw new ArgumentException("AuthorizationToken can not be null or empty");

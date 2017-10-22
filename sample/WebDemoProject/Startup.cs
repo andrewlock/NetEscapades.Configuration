@@ -46,7 +46,7 @@ namespace WebDemoProject
                 .AddRemoteSource(new RemoteConfigurationSource() {
                     ConfigurationUri = new Uri("http://localhost:5001/api/AuthorizeConfiguration"),
                     // Basic Authentication
-                    AuthenticationType= AuthenticationTypes.Basic,
+                    AuthenticationType= AuthenticationType.Basic,
                     UserName="username",
                     Password="password",
                     Optional = true

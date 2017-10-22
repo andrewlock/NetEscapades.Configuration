@@ -1,6 +1,6 @@
 ﻿namespace NetEscapades.Configuration.Remote
 {
-    public enum AuthenticationTypes
+    public enum AuthenticationType
     {
         None,
         Basic,

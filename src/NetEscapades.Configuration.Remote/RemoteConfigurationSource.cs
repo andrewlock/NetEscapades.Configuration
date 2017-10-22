@@ -53,7 +53,7 @@ namespace NetEscapades.Configuration.Remote
         /// <summary>
         /// Authentication for remote URL
         /// </summary>
-        public AuthenticationTypes AuthenticationType { get; set; } = AuthenticationTypes.None;
+        public AuthenticationType AuthenticationType { get; set; } = AuthenticationType.None;
 
         /// <summary>
         /// User name for basic authentication
