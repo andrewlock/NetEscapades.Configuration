@@ -50,6 +50,27 @@ namespace NetEscapades.Configuration.Remote
         /// </summary>
         public string ConfigurationKeyPrefix { get; set; }
 
+        /// <summary>
+        /// Authentication for remote URL
+        /// </summary>
+        public AuthenticationType AuthenticationType { get; set; } = AuthenticationType.None;
+
+        /// <summary>
+        /// User name for basic authentication
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// password for basic authentication
+        /// </summary>
+        public string Password { get; set; }
+
+        /// <summary>
+        /// Authorization bearer token
+        /// </summary>
+        public string AuthorizationToken { get; set; }
+
+
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         {
             return new RemoteConfigurationProvider(this);

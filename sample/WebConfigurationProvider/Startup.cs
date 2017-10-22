@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using WebConfigurationProvider.Middleware;
 
 namespace WebConfigurationProvider
 {
@@ -38,6 +39,13 @@ namespace WebConfigurationProvider
             loggerFactory.AddDebug();
 
             app.UseMvc();
+
+            // basic authentication
+            app.Map("/api/AuthorizeConfiguration",
+            builder =>
+            {
+                builder.UseMiddleware<AuthenticationMiddleware>();
+            });
         }
     }
 }

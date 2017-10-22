@@ -298,6 +298,35 @@ namespace NetEscapades.Configuration.Remote
             Assert.Throws<ArgumentException>(() => new RemoteConfigurationProvider(source));
         }
 
+        [Fact]
+        public void AddRemoteSource_InvalidCredentials() {
+            // Arrange
+            var source = new RemoteConfigurationSource
+            {
+                ConfigurationUri = new Uri("http://localhost"),
+                AuthenticationType = AuthenticationType.Basic
+            };
+
+            // Act and Assert
+            ArgumentException ex = Assert.Throws<ArgumentException>(() => new RemoteConfigurationProvider(source));
+            Assert.Equal("UserName or Password can not be null or empty", ex.Message);
+        }
+
+        [Fact]
+        public void AddRemoteSource_InvalidToken()
+        {
+            // Arrange
+            var source = new RemoteConfigurationSource
+            {
+                ConfigurationUri = new Uri("http://localhost"),
+                AuthenticationType = AuthenticationType.BearerToken
+            };
+
+            // Act and Assert
+            ArgumentException ex = Assert.Throws<ArgumentException>(() => new RemoteConfigurationProvider(source));
+            Assert.Equal("AuthorizationToken can not be null or empty", ex.Message);
+        }
+
         private TestHttpMessageHandler CreateServer(object responseObject, HttpStatusCode code = HttpStatusCode.OK)
         {
             return new TestHttpMessageHandler
