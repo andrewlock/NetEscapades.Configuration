@@ -155,7 +155,7 @@ namespace NetEscapades.Configuration.Yaml
             var exception = Assert.Throws<FileNotFoundException>(() => config.Build());
 
             // Assert
-            Assert.True(exception.Message.StartsWith(string.Format(Resources.Error_FileNotFound, "NotExistingConfig.Yaml")));
+            Assert.StartsWith(string.Format(Resources.Error_FileNotFound, "NotExistingConfig.Yaml"), exception.Message);
         }
 
         [Fact]
