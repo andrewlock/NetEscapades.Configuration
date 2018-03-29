@@ -213,5 +213,17 @@ namespace NetEscapades.Configuration.Yaml.Tests
             Assert.Equal("bob", indexConfigurationSections[4].Key);
             Assert.Equal("hello", indexConfigurationSections[5].Key);
         }
+
+        [Fact]
+        public void FilesWithByteOrderMarkerAreParsedCorrectly()
+        {
+            var yaml = "setting1: '1'\nsetting2: '2'";
+
+            var yamlConfigSource = new YamlConfigurationProvider(new YamlConfigurationSource());
+            yamlConfigSource.Load(TestStreamHelpers.StringToStream(yaml, withBom: true));
+
+            Assert.Equal("1", yamlConfigSource.Get("setting1"));
+            Assert.Equal("2", yamlConfigSource.Get("setting2"));
+        }
     }
 }

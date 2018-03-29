@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 
@@ -105,10 +106,10 @@ namespace NetEscapades.Configuration.Tests.Common
             }
         }
 
-        public static Stream StringToStream(string str)
+        public static Stream StringToStream(string str, bool withBom = false)
         {
             var memStream = new MemoryStream();
-            var textWriter = new StreamWriter(memStream);
+            var textWriter = new StreamWriter(memStream, new UTF8Encoding(withBom));
             textWriter.Write(str);
             textWriter.Flush();
             memStream.Seek(0, SeekOrigin.Begin);
