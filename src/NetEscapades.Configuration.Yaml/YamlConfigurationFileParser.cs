@@ -20,7 +20,7 @@ namespace NetEscapades.Configuration.Yaml
 
             // https://dotnetfiddle.net/rrR2Bb
             var yaml = new YamlStream();
-            yaml.Load(new StreamReader(input));
+            yaml.Load(new StreamReader(input, detectEncodingFromByteOrderMarks: true));
 
             if (yaml.Documents.Any())
             {
