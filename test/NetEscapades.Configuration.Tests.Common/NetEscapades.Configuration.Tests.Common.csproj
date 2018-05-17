@@ -6,7 +6,6 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>NetEscapades.Configuration.Tests.Common</AssemblyName>
     <PackageId>NetEscapades.Configuration.Tests.Common</PackageId>
-    <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.5' ">$(PackageTargetFallback);dotnet5.4</PackageTargetFallback>
   </PropertyGroup>
 
   <ItemGroup>

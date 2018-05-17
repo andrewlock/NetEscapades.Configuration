@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
+    <TargetFrameworks>net451;netcoreapp2.0;netcoreapp1.1</TargetFrameworks>
     <AssemblyName>NetEscapades.Configuration.Remote.Tests</AssemblyName>
     <PackageId>NetEscapades.Configuration.Remote.Tests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
