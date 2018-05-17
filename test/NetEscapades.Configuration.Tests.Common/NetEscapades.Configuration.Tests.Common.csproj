@@ -18,6 +18,7 @@
     <Reference Include="System.IO" />
     <Reference Include="System.Runtime" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Threading.Tasks" />
   </ItemGroup>
 
 </Project>
