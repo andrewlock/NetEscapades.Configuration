@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\netfx.props" />
 
   <PropertyGroup>
     <Description>YAML configuration provider implementation to use with Microsoft.Extensions.Configuration.</Description>

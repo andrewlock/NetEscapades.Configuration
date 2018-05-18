@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\netfx.props" />
 
   <PropertyGroup>
     <Description>Remote configuration provider implementation to use with Microsoft.Extensions.Configuration for loading settings from a remote source</Description>
