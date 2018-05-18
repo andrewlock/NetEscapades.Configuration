@@ -161,7 +161,7 @@ namespace NetEscapades.Configuration.Remote
             var exception = Assert.Throws<Exception>(() => config.Build());
 
             // Assert
-            Assert.True(exception.Message.StartsWith("Error calling remote configuration endpoint"));
+            Assert.StartsWith("Error calling remote configuration endpoint", exception.Message);
         }
 
         [Fact]
@@ -212,7 +212,7 @@ namespace NetEscapades.Configuration.Remote
             var exception = Assert.Throws<Exception>(() => config.Build());
 
             // Assert
-            Assert.True(exception.Message.StartsWith("Error calling remote configuration endpoint"));
+            Assert.StartsWith("Error calling remote configuration endpoint", exception.Message);
         }
 
         [Fact]

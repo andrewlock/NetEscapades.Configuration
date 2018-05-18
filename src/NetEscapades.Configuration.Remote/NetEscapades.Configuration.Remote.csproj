@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\netfx.props" />
 
   <PropertyGroup>
     <Description>Remote configuration provider implementation to use with Microsoft.Extensions.Configuration for loading settings from a remote source</Description>
     <VersionPrefix>1.4.0</VersionPrefix>
     <TargetFrameworks>net451;netstandard1.3;netstandard2.0</TargetFrameworks>
-    <TargetFrameworks Condition="'$(OS)' != 'Windows_NT'">netstandard1.3;netstandard2.0</TargetFrameworks>
     <AssemblyName>NetEscapades.Configuration.Remote</AssemblyName>
     <PackageId>NetEscapades.Configuration.Remote</PackageId>
     <PackageTags>configuration;remote</PackageTags>
@@ -30,6 +30,11 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Threading.Tasks" />
   </ItemGroup>
 
 </Project>
