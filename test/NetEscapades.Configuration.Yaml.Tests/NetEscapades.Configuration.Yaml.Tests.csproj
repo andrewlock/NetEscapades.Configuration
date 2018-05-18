@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\netfx.props" />
 
   <PropertyGroup>
     <TargetFrameworks>net451;netcoreapp2.0;netcoreapp1.1</TargetFrameworks>
