@@ -1,7 +1,7 @@
 version: '{build}'
 image: 
+  - Ubuntu
   - Visual Studio 2017
-  - ubuntu
 pull_requests:
   do_not_increment_build_number: true
 branches:
