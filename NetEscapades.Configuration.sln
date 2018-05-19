@@ -31,6 +31,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEscapades.Configuration.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEscapades.Configuration.KubeSecrets.Tests", "test\NetEscapades.Configuration.KubeSecrets.Tests\NetEscapades.Configuration.KubeSecrets.Tests.csproj", "{C191135C-E202-47F5-B89B-CF2B4564AF64}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEscapades.Configuration.Vault", "src\NetEscapades.Configuration.Vault\NetEscapades.Configuration.Vault.csproj", "{826F4071-15D0-4D89-A025-4B3E2559E4F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEscapades.Configuration.Vault.Tests", "test\NetEscapades.Configuration.Vault.Tests\NetEscapades.Configuration.Vault.Tests.csproj", "{0EEEBB9F-3A6F-4665-BA34-AB52CE2F56B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaultSample", "sample\VaultSample\VaultSample.csproj", "{807FB0B8-AA3E-4D16-BC3F-15E3870714A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +83,18 @@ Global
 		{C191135C-E202-47F5-B89B-CF2B4564AF64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C191135C-E202-47F5-B89B-CF2B4564AF64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C191135C-E202-47F5-B89B-CF2B4564AF64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{826F4071-15D0-4D89-A025-4B3E2559E4F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{826F4071-15D0-4D89-A025-4B3E2559E4F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{826F4071-15D0-4D89-A025-4B3E2559E4F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{826F4071-15D0-4D89-A025-4B3E2559E4F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EEEBB9F-3A6F-4665-BA34-AB52CE2F56B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EEEBB9F-3A6F-4665-BA34-AB52CE2F56B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EEEBB9F-3A6F-4665-BA34-AB52CE2F56B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EEEBB9F-3A6F-4665-BA34-AB52CE2F56B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{807FB0B8-AA3E-4D16-BC3F-15E3870714A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{807FB0B8-AA3E-4D16-BC3F-15E3870714A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{807FB0B8-AA3E-4D16-BC3F-15E3870714A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{807FB0B8-AA3E-4D16-BC3F-15E3870714A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +110,9 @@ Global
 		{FC6CC8CD-6986-4CF4-B3AB-5F5FE5286D9B} = {DCDD1E4A-C585-4DA3-B405-7537B2D9EDE1}
 		{CAB9B77D-72A7-4A96-AE51-7FEA70626CAE} = {38724ECE-2125-4F0C-B200-193A1D3F2466}
 		{C191135C-E202-47F5-B89B-CF2B4564AF64} = {EC37A461-F687-42DB-B1D8-7DDB54B8755D}
+		{826F4071-15D0-4D89-A025-4B3E2559E4F2} = {38724ECE-2125-4F0C-B200-193A1D3F2466}
+		{0EEEBB9F-3A6F-4665-BA34-AB52CE2F56B9} = {EC37A461-F687-42DB-B1D8-7DDB54B8755D}
+		{807FB0B8-AA3E-4D16-BC3F-15E3870714A9} = {DCDD1E4A-C585-4DA3-B405-7537B2D9EDE1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {673EE0BF-430A-436D-AC57-5D76E3DE9395}
