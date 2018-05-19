@@ -1,6 +1,8 @@
 language: csharp
-dotnet: 2.1.4
 mono: 5.12.0
+dotnet: 
+  - 2.1.4
+  - 1.1.2
 
 matrix:
   include:
