@@ -1,0 +1,6 @@
+﻿{
+  "VaultUri": "http://127.0.0.1:8200",
+  "SecretPath": "secret/data/sampleapp/thesecret",
+  "RoleId": "38244dde-d061-2418-68a2-caaadb5bd645",
+  "SecretId": "7922ec30-c8fd-53c7-6dfe-bfe16a4788c8"
+}

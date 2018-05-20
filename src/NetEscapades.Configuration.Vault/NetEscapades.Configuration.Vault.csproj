@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\netfx.props" />
+
+  <PropertyGroup>
+    <Description>Configuration provider implementation to use with Hashicorp Vault.</Description>
+    <VersionPrefix>0.6.4</VersionPrefix>
+    <TargetFrameworks>net451;netstandard1.4;netstandard2.0</TargetFrameworks>
+    <AssemblyName>NetEscapades.Configuration.Vault</AssemblyName>
+    <PackageId>NetEscapades.Configuration.Vault</PackageId>
+    <PackageTags>configuration;Vault;Hashicorp</PackageTags>
+    <PackageProjectUrl>https://github.com/andrewlock/NetEscapades.Configuration/tree/master/src/NetEscapades.Configuration.Vault</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/andrewlock/NetEscapades.Configuration/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/andrewlock/NetEscapades.Configuration</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="VaultSharp" Version="0.6.4" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime" />
+  </ItemGroup>
+</Project>
