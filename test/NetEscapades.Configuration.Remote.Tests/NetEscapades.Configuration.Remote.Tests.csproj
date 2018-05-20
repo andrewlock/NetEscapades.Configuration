@@ -1,14 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\netfx.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>net451;netcoreapp2.0;netcoreapp1.1</TargetFrameworks>
+    <TargetFrameworks>net452;netcoreapp2.0;netcoreapp1.1</TargetFrameworks>
     <AssemblyName>NetEscapades.Configuration.Remote.Tests</AssemblyName>
     <PackageId>NetEscapades.Configuration.Remote.Tests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\NetEscapades.Configuration.Tests.Common\NetEscapades.Configuration.Tests.Common.csproj" />
     <ProjectReference Include="..\..\src\NetEscapades.Configuration.Remote\NetEscapades.Configuration.Remote.csproj" />
@@ -21,7 +25,7 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.0" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
     <Reference Include="System.Runtime" />
     <Reference Include="System.Threading.Tasks" />
   </ItemGroup>
