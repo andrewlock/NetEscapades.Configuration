@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <ProjectReference Include="..\NetEscapades.Configuration.Tests.Common\NetEscapades.Configuration.Tests.Common.csproj" />
     <ProjectReference Include="..\..\src\NetEscapades.Configuration.Yaml\NetEscapades.Configuration.Yaml.csproj" />
   </ItemGroup>
