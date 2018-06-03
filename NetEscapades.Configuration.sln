@@ -33,9 +33,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEscapades.Configuration.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEscapades.Configuration.Vault", "src\NetEscapades.Configuration.Vault\NetEscapades.Configuration.Vault.csproj", "{826F4071-15D0-4D89-A025-4B3E2559E4F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEscapades.Configuration.Vault.Tests", "test\NetEscapades.Configuration.Vault.Tests\NetEscapades.Configuration.Vault.Tests.csproj", "{0EEEBB9F-3A6F-4665-BA34-AB52CE2F56B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEscapades.Configuration.Vault.Tests", "test\NetEscapades.Configuration.Vault.Tests\NetEscapades.Configuration.Vault.Tests.csproj", "{0EEEBB9F-3A6F-4665-BA34-AB52CE2F56B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaultSample", "sample\VaultSample\VaultSample.csproj", "{807FB0B8-AA3E-4D16-BC3F-15E3870714A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaultSample", "sample\VaultSample\VaultSample.csproj", "{807FB0B8-AA3E-4D16-BC3F-15E3870714A9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEscapades.Configuration.Validation", "src\NetEscapades.Configuration.Validation\NetEscapades.Configuration.Validation.csproj", "{4D257914-5619-43EE-AE9E-233C1228F2BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEscapades.Configuration.Validation.Tests", "test\NetEscapades.Configuration.Validation.Tests\NetEscapades.Configuration.Validation.Tests.csproj", "{B6324876-E265-4E3B-8F89-3C622D6D64A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +99,14 @@ Global
 		{807FB0B8-AA3E-4D16-BC3F-15E3870714A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{807FB0B8-AA3E-4D16-BC3F-15E3870714A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{807FB0B8-AA3E-4D16-BC3F-15E3870714A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D257914-5619-43EE-AE9E-233C1228F2BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D257914-5619-43EE-AE9E-233C1228F2BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D257914-5619-43EE-AE9E-233C1228F2BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D257914-5619-43EE-AE9E-233C1228F2BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6324876-E265-4E3B-8F89-3C622D6D64A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6324876-E265-4E3B-8F89-3C622D6D64A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6324876-E265-4E3B-8F89-3C622D6D64A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6324876-E265-4E3B-8F89-3C622D6D64A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,6 +125,8 @@ Global
 		{826F4071-15D0-4D89-A025-4B3E2559E4F2} = {38724ECE-2125-4F0C-B200-193A1D3F2466}
 		{0EEEBB9F-3A6F-4665-BA34-AB52CE2F56B9} = {EC37A461-F687-42DB-B1D8-7DDB54B8755D}
 		{807FB0B8-AA3E-4D16-BC3F-15E3870714A9} = {DCDD1E4A-C585-4DA3-B405-7537B2D9EDE1}
+		{4D257914-5619-43EE-AE9E-233C1228F2BC} = {38724ECE-2125-4F0C-B200-193A1D3F2466}
+		{B6324876-E265-4E3B-8F89-3C622D6D64A1} = {EC37A461-F687-42DB-B1D8-7DDB54B8755D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {673EE0BF-430A-436D-AC57-5D76E3DE9395}
