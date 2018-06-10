@@ -23,7 +23,7 @@ for:
 -
   matrix:
     only:
-      - image: Ubuntu
+      - image: Visual Studio 2017
 
   deploy:
   - provider: NuGet
