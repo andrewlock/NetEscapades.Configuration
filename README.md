@@ -47,7 +47,7 @@ PM> Install-Package NetEscapades.Configuration.Yaml
 When you install the package, it should be added to your _csproj_ file. Alternatively, you can add it directly by adding:
 
 ```xml
-<PackageReference Include="NetEscapades.Configuration.Yaml" Version="1.3.1" />
+<PackageReference Include="NetEscapades.Configuration.Yaml" Version="1.4.0" />
 ```
 
 To load a YAML file as part of your config, just load it as part of your normal `ConfigurationBuilder` setup in the `Program` class of your ASP.NET Core app. 
