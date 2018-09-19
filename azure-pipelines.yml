@@ -9,10 +9,10 @@ pool:
 variables:
   buildConfiguration: 'Release'
 
+steps:
 - task: DotNetCoreInstaller@0
   inputs:
     version: '1.0.4'
 
-steps:
 - script: ./build.sh
   displayName: './build.sh'
