@@ -11,6 +11,10 @@ jobs:
 
   - task: DotNetCoreInstaller@0
     inputs:
+      version: '1.1.2'
+
+  - task: DotNetCoreInstaller@0
+    inputs:
       version: '1.1.4'
 
   - task: DotNetCoreInstaller@0
@@ -31,6 +35,10 @@ jobs:
   - task: DotNetCoreInstaller@0
     inputs:
       version: '1.0.4'
+
+  - task: DotNetCoreInstaller@0
+    inputs:
+      version: '1.1.2'
 
   - task: DotNetCoreInstaller@0
     inputs:
