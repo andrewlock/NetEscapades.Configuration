@@ -5,18 +5,6 @@ jobs:
     vmImage: 'ubuntu-16.04'
 
   steps:
-  - task: DotNetCoreInstaller@0
-    inputs:
-      version: '1.0.4'
-
-  - task: DotNetCoreInstaller@0
-    inputs:
-      version: '1.1.4'
-
-  - task: DotNetCoreInstaller@0
-    inputs:
-      version: '2.1.401'
-
   - bash: ./build.sh
     env:
       COREHOST_TRACE: 0
@@ -28,18 +16,6 @@ jobs:
     vmImage: 'xcode9-macos10.13'
 
   steps:
-  - task: DotNetCoreInstaller@0
-    inputs:
-      version: '1.0.4'
-
-  - task: DotNetCoreInstaller@0
-    inputs:
-      version: '1.1.4'
-
-  - task: DotNetCoreInstaller@0
-    inputs:
-      version: '2.1.401'
-
   - bash: ./build.sh
     env:
       COREHOST_TRACE: 0
@@ -51,18 +27,6 @@ jobs:
     vmImage: 'vs2017-win2017'
 
   steps:
-  - task: DotNetCoreInstaller@0
-    inputs:
-      version: '1.0.4'
-
-  - task: DotNetCoreInstaller@0
-    inputs:
-      version: '1.1.4'
-
-  - task: DotNetCoreInstaller@0
-    inputs:
-      version: '2.1.401'
-
   - powershell: .\build.ps1
     env:
       COREHOST_TRACE: 0
