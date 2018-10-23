@@ -111,7 +111,7 @@ Test: Value2
 TEST: Value3
 ```
 
-**However**, the `Microsoft.Extensions.Configuration` library is case **insensitive**. Attempting to load the provided file would throw an exception on attempting to load, compaining of a duplicate key.
+**However**, the `Microsoft.Extensions.Configuration` library is case **insensitive**. Attempting to load the provided file would throw an exception on attempting to load, complaining of a duplicate key.
 
 
 ## Remote configuration provider 
