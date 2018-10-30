@@ -1,6 +1,6 @@
 # NetEscapades.Configuration
 
-[![AzurePipelines](https://dev.azure.com/andrewlocknet/NetEscapades.Configuration/_apis/build/status/andrewlock.NetEscapades.Configuration?branchName=master)](https://dev.azure.com/andrewlocknet/NetEscapades.Configuration/_build/latest?definitionId=1)
+[![AzurePipelines](https://dev.azure.com/andrewlock/NetEscapades.Configuration/_apis/build/status/andrewlock.NetEscapades.Configuration?branchName=master)](https://dev.azure.com/andrewlock/NetEscapades.Configuration/_build/latest?definitionId=1)
 
 [![AppVeyor build status][appveyor-badge]](https://ci.appveyor.com/project/andrewlock/netescapades-configuration)
 
