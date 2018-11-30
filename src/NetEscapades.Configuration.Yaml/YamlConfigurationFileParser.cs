@@ -66,7 +66,7 @@ namespace NetEscapades.Configuration.Yaml
                 throw new FormatException(Resources.FormatError_KeyIsDuplicated(currentKey));
             }
 
-            _data[currentKey] = yamlValue.Value;
+            _data[currentKey] = IsNullValue(yamlValue) ? null : yamlValue.Value;
             ExitContext();
         }
 
@@ -116,6 +116,17 @@ namespace NetEscapades.Configuration.Yaml
         {
             _context.Pop();
             _currentPath = ConfigurationPath.Combine(_context.Reverse());
+        }
+
+        private bool IsNullValue(YamlScalarNode yamlValue)
+        {
+            return yamlValue.Style == YamlDotNet.Core.ScalarStyle.Plain
+                && (
+                    yamlValue.Value == "~"
+                    || yamlValue.Value == "null"
+                    || yamlValue.Value == "Null"
+                    || yamlValue.Value == "NULL"
+                );
         }
     }
 }
