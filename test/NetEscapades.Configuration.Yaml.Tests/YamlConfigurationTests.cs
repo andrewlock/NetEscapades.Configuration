@@ -57,6 +57,65 @@ namespace NetEscapades.Configuration.Yaml
         }
 
         [Fact]
+        public void LoadMethodCanHandleNullInObject()
+        {
+            var yaml = @"
+                firstname: test
+                test.suffix: ~
+                test.last.name: ''
+                residential.address: 
+                  street.name: Something street
+                  zipcode: null
+                ";
+            var yamlConfigSrc = LoadProvider(yaml);
+
+            Assert.Equal("test", yamlConfigSrc.Get("firstname"));
+            Assert.Null(yamlConfigSrc.Get("test.suffix"));
+            Assert.Equal(string.Empty, yamlConfigSrc.Get("test.last.name"));
+            Assert.Equal("Something street", yamlConfigSrc.Get("residential.address:STREET.name"));
+            Assert.Null(yamlConfigSrc.Get("residential.address:zipcode"));
+        }
+
+        [Fact]
+        public void LoadMethodCanHandleNullValue()
+        {
+            var yaml = @"
+                nullValue1: null
+                nullValue2: Null
+                nullValue3: NULL
+                nullValue4: ~
+            ";
+
+            var yamlConfigSrc = LoadProvider(yaml);
+            Assert.Null(yamlConfigSrc.Get("nullValue1"));
+            Assert.Null(yamlConfigSrc.Get("nullValue2"));
+            Assert.Null(yamlConfigSrc.Get("nullValue3"));
+            Assert.Null(yamlConfigSrc.Get("nullValue4"));
+        }
+
+        [Fact]
+        public void OverrideWithNullValue()
+        {
+            var yaml1 = @"
+                firstname: test
+                ";
+
+            var yaml2 = @"
+                firstname: null
+                ";
+
+            var yamlConfigSource1 = new YamlConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml1) };
+            var yamlConfigSource2 = new YamlConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml2) };
+
+            var configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.Add(yamlConfigSource1);
+            configurationBuilder.Add(yamlConfigSource2);
+            var config = configurationBuilder.Build();
+
+            Assert.Null(config["firstname"]);
+        }
+
+        [Fact]
         public void SupportAndIgnoreComments()
         {
             var yaml = @"# Comments 
