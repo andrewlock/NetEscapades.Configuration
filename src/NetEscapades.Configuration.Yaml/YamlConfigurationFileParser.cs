@@ -41,17 +41,17 @@ namespace NetEscapades.Configuration.Yaml
 
         private void VisitYamlNode(string context, YamlNode node)
         {
-            if (node is YamlScalarNode)
+            if (node is YamlScalarNode scalarNode)
             {
-                VisitYamlScalarNode(context, (YamlScalarNode)node);
+                VisitYamlScalarNode(context, scalarNode);
             }
-            if (node is YamlMappingNode)
+            if (node is YamlMappingNode mappingNode)
             {
-                VisitYamlMappingNode(context, (YamlMappingNode)node);
+                VisitYamlMappingNode(context, mappingNode);
             }
-            if (node is YamlSequenceNode)
+            if (node is YamlSequenceNode sequenceNode)
             {
-                VisitYamlSequenceNode(context, (YamlSequenceNode)node);
+                VisitYamlSequenceNode(context, sequenceNode);
             }
         }
 
