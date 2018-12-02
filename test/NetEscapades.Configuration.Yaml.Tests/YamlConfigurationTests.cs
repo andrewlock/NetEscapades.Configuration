@@ -57,6 +57,26 @@ namespace NetEscapades.Configuration.Yaml
         }
 
         [Fact]
+        public void LoadMethodCanHandleNullInObject()
+        {
+            var yaml = @"
+                firstname: test
+                test.suffix: ~
+                test.last.name: ''
+                residential.address: 
+                  street.name: Something street
+                  zipcode: null
+                ";
+            var yamlConfigSrc = LoadProvider(yaml);
+
+            Assert.Equal("test", yamlConfigSrc.Get("firstname"));
+            Assert.Null(yamlConfigSrc.Get("test.suffix"));
+            Assert.Equal(string.Empty, yamlConfigSrc.Get("test.last.name"));
+            Assert.Equal("Something street", yamlConfigSrc.Get("residential.address:STREET.name"));
+            Assert.Null(yamlConfigSrc.Get("residential.address:zipcode"));
+        }
+
+        [Fact]
         public void LoadMethodCanHandleNullValue()
         {
             var yaml = @"
