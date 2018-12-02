@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <Description>YAML configuration provider implementation to use with Microsoft.Extensions.Configuration.</Description>
-    <VersionPrefix>1.5.0</VersionPrefix>
+    <VersionPrefix>1.6.0</VersionPrefix>
     <TargetFrameworks>net451;netstandard1.3;netstandard2.0</TargetFrameworks>
     <AssemblyName>NetEscapades.Configuration.Yaml</AssemblyName>
     <PackageId>NetEscapades.Configuration.Yaml</PackageId>
@@ -16,6 +16,8 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
+
+  <Import Project="releasenotes.props" />
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="all" />

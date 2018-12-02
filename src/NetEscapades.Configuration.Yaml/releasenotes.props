@@ -1,0 +1,29 @@
+<Project>
+  <PropertyGroup>
+    <PackageReleaseNotes Condition="'$(VersionPrefix)' == '1.6.0'">
+      <![CDATA[
+Features:
+* Add support for Null values in YAML files (Thanks mdschweda: https://github.com/mdschweda)
+
+The following values are interpreted as 'null' during parsing (as per v1.1 of the spec http://yaml.org/type/null.html)
+
+```yaml
+nullValue1: Null
+nullValue2: null
+nullValue3: Null
+nullValue4: ~
+```
+
+Yaml is case sensitive, so be aware that the following values are NOT parsed as null. 
+Instead they are parsed as their string equivalent (NuLL, NUll, and empty strings)
+
+```yaml
+notNull1: NuLL
+notNull2: NUll
+notNull3: 
+notNull4: ''
+```
+]]>
+    </PackageReleaseNotes>
+  </PropertyGroup>
+</Project>
