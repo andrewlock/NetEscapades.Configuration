@@ -84,6 +84,8 @@ namespace NetEscapades.Configuration.Yaml
                 nullValue2: Null
                 nullValue3: NULL
                 nullValue4: ~
+                notNull1: NUll
+                notNull2: NuLL
             ";
 
             var yamlConfigSrc = LoadProvider(yaml);
@@ -91,6 +93,8 @@ namespace NetEscapades.Configuration.Yaml
             Assert.Null(yamlConfigSrc.Get("nullValue2"));
             Assert.Null(yamlConfigSrc.Get("nullValue3"));
             Assert.Null(yamlConfigSrc.Get("nullValue4"));
+            Assert.NotNull(yamlConfigSrc.Get("notNull1"));
+            Assert.NotNull(yamlConfigSrc.Get("notNull2"));
         }
 
         [Fact]
