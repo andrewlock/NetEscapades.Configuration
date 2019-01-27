@@ -75,7 +75,7 @@ public class Program
 }
 ```
 
-A more complete `Startup` class that loads multiple files (overwriting config values) might look more like the following: 
+A more complete `Program` class that loads multiple files (overwriting config values) might look more like the following: 
 
 ```csharp
 public class Program
@@ -99,7 +99,7 @@ public class Program
 }
 ```
 
-There is a demo Web API project in the test folder of the GitHub project at https://github.com/andrewlock/NetEscapades.Configuration/tree/master/test/WebDemoProject
+There is a demo Web API project in the test folder of the GitHub project at https://github.com/andrewlock/NetEscapades.Configuration/tree/master/sample/WebDemoProject2_0
 
 ### Troubleshooting
 
