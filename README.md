@@ -87,12 +87,13 @@ public class Program
 
     public static IWebHost BuildWebHost(string[] args) =>
         WebHost.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration(builder => 
+            .ConfigureAppConfiguration((context, builder) =>
             {
+                var env = context.HostingEnvironment;
                 builder
                     .AddYamlFile("appsettings.yml", optional: false)
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
             })
             .UseStartup<Startup>()
             .Build();
