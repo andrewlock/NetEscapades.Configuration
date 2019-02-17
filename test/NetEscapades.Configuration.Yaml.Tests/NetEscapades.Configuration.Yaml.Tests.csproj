@@ -2,7 +2,7 @@
   <Import Project="..\..\netfx.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>net452;netcoreapp2.0;netcoreapp1.1</TargetFrameworks>
+    <TargetFrameworks>net472;netcoreapp2.0;netcoreapp1.1</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>NetEscapades.Configuration.Yaml.Tests</AssemblyName>
     <PackageId>NetEscapades.Configuration.Yaml.Tests</PackageId>
