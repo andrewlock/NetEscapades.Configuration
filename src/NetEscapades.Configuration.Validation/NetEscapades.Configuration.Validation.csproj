@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\netfx.props" />
 
   <PropertyGroup>
     <Description>A package to validate strongly typed configuration on app startup</Description>
