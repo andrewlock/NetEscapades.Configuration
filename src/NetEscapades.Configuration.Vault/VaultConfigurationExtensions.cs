@@ -1,8 +1,9 @@
-﻿using NetEscapades.Configuration.Vault;
+using NetEscapades.Configuration.Vault;
 using System;
 using VaultSharp;
 using VaultSharp.Backends.Authentication.Models;
 using VaultSharp.Backends.Authentication.Models.AppRole;
+using VaultSharp.Backends.Authentication.Models.Token;
 
 namespace Microsoft.Extensions.Configuration
 {
@@ -34,7 +35,7 @@ namespace Microsoft.Extensions.Configuration
             var authInfo = new AppRoleAuthenticationInfo(roleId, secretId);
             return AddVault(configurationBuilder, vaultUri, authInfo, secretLocationPaths);
         }
-        
+
         /// <summary>
         /// Adds an <see cref="IConfigurationProvider"/> that reads configuration values from Hashicorp Vault.
         /// </summary>
