@@ -34,6 +34,27 @@ namespace Microsoft.Extensions.Configuration
             var authInfo = new AppRoleAuthenticationInfo(roleId, secretId);
             return AddVault(configurationBuilder, vaultUri, authInfo, secretLocationPaths);
         }
+        
+        /// <summary>
+        /// Adds an <see cref="IConfigurationProvider"/> that reads configuration values from Hashicorp Vault.
+        /// </summary>
+        /// <param name="configurationBuilder">The <see cref="IConfigurationBuilder"/> to add to.</param>
+        /// <param name="vaultUri">The Vault uri with port.</param>
+        /// <param name="token">The token to use for authentication.</param>
+        /// <param name="secretLocationPaths">The paths for the secrets to load.</param>
+        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
+        public static IConfigurationBuilder AddVaultWithToken(
+            this IConfigurationBuilder configurationBuilder,
+            string vaultUri,
+            string token,
+            params string[] secretLocationPaths)
+        {
+            if (string.IsNullOrWhiteSpace(vaultUri)) { throw new ArgumentException("vaultUri must be a valid URI", nameof(vaultUri)); }
+            if (string.IsNullOrEmpty(token)) { throw new ArgumentException("token must not be null or empty", nameof(token)); }
+
+            var authInfo = new TokenAuthenticationInfo(token);
+            return AddVault(configurationBuilder, vaultUri, authInfo, secretLocationPaths);
+        }
 
         /// <summary>
         /// Adds an <see cref="IConfigurationProvider"/> that reads configuration values from Hashicorp Vault.
