@@ -49,7 +49,7 @@ PM> Install-Package NetEscapades.Configuration.Yaml
 When you install the package, it should be added to your _csproj_ file. Alternatively, you can add it directly by adding:
 
 ```xml
-<PackageReference Include="NetEscapades.Configuration.Yaml" Version="1.5.0" />
+<PackageReference Include="NetEscapades.Configuration.Yaml" Version="1.7.0" />
 ```
 
 To load a YAML file as part of your config, just load it as part of your normal `ConfigurationBuilder` setup in the `Program` class of your ASP.NET Core app. 
@@ -134,7 +134,7 @@ When you install the package, it should be added to your _csproj_. Alternatively
 
 
 ```xml
-<PackageReference Include="NetEscapades.Configuration.Remote" Version="1.4.0" />
+<PackageReference Include="NetEscapades.Configuration.Remote" Version="1.5.0" />
 ```
 
 To load a file from a remote configuration source as part of your config, just load it as part of your normal `ConfigurationBuilder` setup in the `Program` class of your ASP.NET Core app. 
@@ -191,7 +191,7 @@ PM> Install-Package NetEscapades.Configuration.Vault
 When you install the package, it should be added to your _csproj_. Alternatively, you can add it directly by adding:
 
 ```xml
-<PackageReference Include="NetEscapades.Configuration.Vault" Version="0.6.4" />
+<PackageReference Include="NetEscapades.Configuration.Vault" Version="0.7.0" />
 ```
 
 You can load secrets from a Vault instance as part of your configuration build. You can use any supported authentication method supported by [`VaultSharp`](https://github.com/rajanadar/VaultSharp), which is used under the hood, but an extension method exists for using `AppRole` specifically.
