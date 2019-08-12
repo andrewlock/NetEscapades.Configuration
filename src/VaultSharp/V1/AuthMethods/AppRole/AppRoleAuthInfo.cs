@@ -2,6 +2,7 @@ using VaultSharp.V1.Core;
 
 namespace VaultSharp.V1.AuthMethods.Token
 {
+
     /// <summary>
     /// Represents the login information for the Token Authentication backend.
     /// </summary>
