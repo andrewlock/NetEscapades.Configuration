@@ -54,8 +54,8 @@ namespace Microsoft.Extensions.Configuration
             params string[] secretLocationPaths)
         {
             if (string.IsNullOrWhiteSpace(vaultUri)) { throw new ArgumentException("vaultUri must be a valid URI", nameof(vaultUri)); }
-            if (string.IsNullOrEmpty(roleId)) { throw new ArgumentException("username must not be null or empty", nameof(roleId)); }
-            if (string.IsNullOrEmpty(secretId)) { throw new ArgumentException("password must not be null or empty", nameof(secretId)); }
+            if (string.IsNullOrEmpty(roleId)) { throw new ArgumentException("roleId must not be null or empty", nameof(roleId)); }
+            if (string.IsNullOrEmpty(secretId)) { throw new ArgumentException("secretId must not be null or empty", nameof(secretId)); }
 
             var authInfo = new AppRoleAuthenticationInfo(roleId, secretId);
             return AddVault(configurationBuilder, vaultUri, authInfo, secretLocationPaths);
