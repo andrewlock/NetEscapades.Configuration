@@ -4,7 +4,7 @@ using VaultSharp;
 using VaultSharp.Backends.Authentication.Models;
 using VaultSharp.Backends.Authentication.Models.AppRole;
 using VaultSharp.Backends.Authentication.Models.Token;
-using VaultSharp.V1.AuthMethods.UserPass;
+using VaultSharp.Backends.Authentication.Models.UsernamePassword;
 
 namespace Microsoft.Extensions.Configuration
 {
@@ -33,7 +33,7 @@ namespace Microsoft.Extensions.Configuration
             if (string.IsNullOrEmpty(username)) { throw new ArgumentException("username must not be null or empty", nameof(username)); }
             if (string.IsNullOrEmpty(password)) { throw new ArgumentException("password must not be null or empty", nameof(password)); }
 
-            var authInfo = new UserPassAuthMethodInfo(username, password);
+            var authInfo = new UsernamePasswordAuthenticationInfo(username, password);
             return AddVault(configurationBuilder, vaultUri, authInfo, secretLocationPaths);
         }
 
