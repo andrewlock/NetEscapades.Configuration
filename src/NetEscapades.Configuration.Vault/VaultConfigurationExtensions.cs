@@ -4,6 +4,7 @@ using VaultSharp;
 using VaultSharp.Backends.Authentication.Models;
 using VaultSharp.Backends.Authentication.Models.AppRole;
 using VaultSharp.Backends.Authentication.Models.Token;
+using VaultSharp.Backends.Authentication.Models.UsernamePassword;
 
 namespace Microsoft.Extensions.Configuration
 {
@@ -12,6 +13,30 @@ namespace Microsoft.Extensions.Configuration
     /// </summary>
     public static class VaultConfigurationExtensions
     {
+        /// <summary>
+        /// Adds an <see cref="IConfigurationProvider"/> that reads configuration values from Hashicorp Vault.
+        /// </summary>
+        /// <param name="configurationBuilder">The <see cref="IConfigurationBuilder"/> to add to.</param>
+        /// <param name="vaultUri">The Vault uri with port.</param>
+        /// <param name="username">The username to use for authentication.</param>
+        /// <param name="password">The password to use for authentication.</param>
+        /// <param name="secretLocationPaths">The paths for the secrets to load.</param>
+        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
+        public static IConfigurationBuilder AddVaultWithUserPass(
+            this IConfigurationBuilder configurationBuilder,
+            string vaultUri,
+            string username,
+            string password,
+            params string[] secretLocationPaths)
+        {
+            if (string.IsNullOrWhiteSpace(vaultUri)) { throw new ArgumentException("vaultUri must be a valid URI", nameof(vaultUri)); }
+            if (string.IsNullOrEmpty(username)) { throw new ArgumentException("username must not be null or empty", nameof(username)); }
+            if (string.IsNullOrEmpty(password)) { throw new ArgumentException("password must not be null or empty", nameof(password)); }
+
+            var authInfo = new UsernamePasswordAuthenticationInfo(username, password);
+            return AddVault(configurationBuilder, vaultUri, authInfo, secretLocationPaths);
+        }
+
         /// <summary>
         /// Adds an <see cref="IConfigurationProvider"/> that reads configuration values from Hashicorp Vault.
         /// </summary>
