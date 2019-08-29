@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using VaultSharp;
 using VaultSharp.Backends.System.Models;
 
@@ -52,11 +53,45 @@ namespace NetEscapades.Configuration.Vault
                 }
                 else
                 {
+                    // test id secretData is JSON
+                    // if it's not
                     AddSecrets(data, secret, secretData);
+                    // if it is
+                    // use the core config framework to get the secrets formatted as expected
+                    // loop the secrets and call AddSecrets?
                 }
             }
 
             Data = data;
+        }
+
+        private static bool IsValidJson(string strInput)
+        {
+            strInput = strInput.Trim();
+            if ((strInput.StartsWith("{") && strInput.EndsWith("}")) || //For object
+                (strInput.StartsWith("[") && strInput.EndsWith("]"))) //For array
+            {
+                try
+                {
+                    var obj = JToken.Parse(strInput);
+                    return true;
+                }
+                catch (JsonReaderException jex)
+                {
+                    //Exception in parsing json
+                    Console.WriteLine(jex.Message);
+                    return false;
+                }
+                catch (Exception ex) //some other exception
+                {
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void AddSecrets<T>(Dictionary<string, string> data, Secret<Dictionary<string, object>> secret, IDictionary<string, T> secretData)
@@ -66,6 +101,15 @@ namespace NetEscapades.Configuration.Vault
                 if (!_manager.Load(secret, kvp.Key))
                 {
                     continue;
+                }
+
+                if (IsValidJson(kvp.Value?.ToString()))
+                {
+                    var configInner =  JsonConfigurationStringParser.Parse(kvp.Value?.ToString());
+                    foreach (var inner in configInner)
+                    {
+                        data.Add(inner.Key, inner.Value);
+                    }
                 }
 
                 var key = _manager.GetKey(secret, kvp.Key);
