@@ -52,13 +52,8 @@ namespace NetEscapades.Configuration.Vault
                     AddSecrets(data, secret, v2Data);
                 }
                 else
-                {
-                    // test id secretData is JSON
-                    // if it's not
-                    AddSecrets(data, secret, secretData);
-                    // if it is
-                    // use the core config framework to get the secrets formatted as expected
-                    // loop the secrets and call AddSecrets?
+                {                    
+                    AddSecrets(data, secret, secretData);                    
                 }
             }
 
