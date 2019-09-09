@@ -106,11 +106,12 @@ namespace NetEscapades.Configuration.Vault
                         data.Add(inner.Key, inner.Value);
                     }
                 }
-
-                var key = _manager.GetKey(secret, kvp.Key);
-                data.Add(key, kvp.Value?.ToString());
+                else
+                {
+                    var key = _manager.GetKey(secret, kvp.Key);
+                    data.Add(key, kvp.Value?.ToString());
+                }
             }
         }
-
     }
 }
