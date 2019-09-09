@@ -46,6 +46,33 @@ namespace NetEscapades.Configuration.Vault.Tests
         }
 
         [Fact]
+        public void LoadsAllSecretsFromVaultAsJson()
+        {
+            var client = new Mock<IVaultClient>(MockBehavior.Strict);
+            var secret1Id = GetSecretId("Secret1");
+            var secret2Id = GetSecretId("Secret2");
+
+            client.Setup(c => c.ReadSecretAsync(SecretPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
+            {
+                Data = new Dictionary<string, object> {
+                    { secret1Id, "Value1" },
+                    { secret2Id, "{ \"test\": { \"value\": \"something\" } }" },
+                }
+            });
+
+            // Act
+            var provider = new VaultJsonConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath });
+            provider.Load();
+
+            // Assert
+            client.VerifyAll();
+
+            var childKeys = provider.GetChildKeys(Enumerable.Empty<string>(), null).ToArray();
+            Assert.Equal(new[] {"test" }, childKeys);
+            Assert.Equal("something", provider.Get("test:value"));
+        }
+
+        [Fact]
         public void LoadsAllSecretsFromVaultIfLooksLikeV2Data()
         {
             var client = new Mock<IVaultClient>(MockBehavior.Strict);
