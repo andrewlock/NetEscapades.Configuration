@@ -23,7 +23,9 @@ namespace NetEscapades.Configuration.Vault
         /// Gets or sets the <see cref="IVaultSecretManager"/> instance used to control secret loading.
         /// </summary>
         public IVaultSecretManager Manager { get; set; }
-        
+
+        public bool UsingJsonSecrets { get; set; }
+
         /// <inheritdoc />
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         {

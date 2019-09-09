@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using VaultSharp;
 using VaultSharp.Backends.System.Models;
 using Xunit;
@@ -43,6 +44,33 @@ namespace NetEscapades.Configuration.Vault.Tests
             Assert.Equal(new[] { "Secret1", "Secret2" }, childKeys);
             Assert.Equal("Value1", provider.Get("Secret1"));
             Assert.Equal("Value2", provider.Get("Secret2"));
+        }
+
+        [Fact]
+        public void LoadsAllSecretsFromVaultAsJson()
+        {
+            var client = new Mock<IVaultClient>(MockBehavior.Strict);
+            var secret1Id = GetSecretId("Secret1");
+            var secret2Id = GetSecretId("Secret2");
+
+            client.Setup(c => c.ReadSecretAsync(SecretPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
+            {
+                Data = new Dictionary<string, object> {
+                    { secret1Id, "Value1" },
+                    { secret2Id, "{ \"test\": { \"value\": \"something\" } }" },
+                }
+            });
+
+            // Act
+            var provider = new VaultJsonConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath });
+            provider.Load();
+
+            // Assert
+            client.VerifyAll();
+
+            var childKeys = provider.GetChildKeys(Enumerable.Empty<string>(), null).ToArray();
+            Assert.Equal(new[] { "test" }, childKeys);
+            Assert.Equal("something", provider.Get("test:value"));
         }
 
         [Fact]
