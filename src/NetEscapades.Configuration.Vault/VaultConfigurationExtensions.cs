@@ -1,4 +1,4 @@
-using NetEscapades.Configuration.Vault;
+﻿using NetEscapades.Configuration.Vault;
 using System;
 using VaultSharp;
 using VaultSharp.Backends.Authentication.Models;
@@ -156,16 +156,32 @@ namespace Microsoft.Extensions.Configuration
         /// </summary>
         /// <param name="configurationBuilder">The <see cref="IConfigurationBuilder"/> to add to.</param>
         /// <param name="vaultUri">The Vault uri with port.</param>
-        /// <param name="roleId">The AppRole role_id to use for authentication.</param>
-        /// <param name="secretId">The secret_id to use for authentication.</param>
-        /// <param name="asJson"></param>
+        /// <param name="authenticationInfo">The authentication information for Vault</param>
         /// <param name="secretLocationPaths">The paths for the secrets to load.</param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
         public static IConfigurationBuilder AddVault(
             this IConfigurationBuilder configurationBuilder,
             string vaultUri,
             IAuthenticationInfo authenticationInfo,
-            bool asJson = false,
+            params string[] secretLocationPaths)
+        {
+            return configurationBuilder.AddVault(vaultUri, authenticationInfo, asJson: false, secretLocationPaths);
+        }
+        
+        /// <summary>
+        /// Adds an <see cref="IConfigurationProvider"/> that reads configuration values from Hashicorp Vault.
+        /// </summary>
+        /// <param name="configurationBuilder">The <see cref="IConfigurationBuilder"/> to add to.</param>
+        /// <param name="vaultUri">The Vault uri with port.</param>
+        /// <param name="authenticationInfo">The authentication information for Vault</param>
+        /// <param name="asJson">Load the secrets as JSON files</param>
+        /// <param name="secretLocationPaths">The paths for the secrets to load.</param>
+        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
+        public static IConfigurationBuilder AddVault(
+            this IConfigurationBuilder configurationBuilder,
+            string vaultUri,
+            IAuthenticationInfo authenticationInfo,
+            bool asJson,
             params string[] secretLocationPaths)
         {
             if (string.IsNullOrWhiteSpace(vaultUri)) { throw new ArgumentException("VaultUri must be a valid URI", nameof(vaultUri)); }
@@ -184,15 +200,32 @@ namespace Microsoft.Extensions.Configuration
         /// </summary>
         /// <param name="configurationBuilder">The <see cref="IConfigurationBuilder"/> to add to.</param>
         /// <param name="client">The <see cref="IVaultClient"/> to use for retrieving values.</param>
-        /// <param name="manager">The <see cref="IKeyVaultSecretManager"/> instance used to control secret loading.</param>
-        /// <param name="asJson">Secrets stored as Vault JSON secrets</param>
+        /// <param name="manager">The <see cref="IVaultSecretManager"/> instance used to control secret loading.</param>
         /// <param name="secretLocationPaths">The paths for the secrets to load.</param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
         public static IConfigurationBuilder AddVault(
             this IConfigurationBuilder configurationBuilder,
             IVaultClient client,
             IVaultSecretManager manager,
-            bool asJson = false,
+            params string[] secretLocationPaths)
+        {
+            return configurationBuilder.AddVault(client, manager, asJson: false, secretLocationPaths);
+        }
+
+        /// <summary>
+        /// Adds an <see cref="IConfigurationProvider"/> that reads configuration values from Hashicorp Vault.
+        /// </summary>
+        /// <param name="configurationBuilder">The <see cref="IConfigurationBuilder"/> to add to.</param>
+        /// <param name="client">The <see cref="IVaultClient"/> to use for retrieving values.</param>
+        /// <param name="manager">The <see cref="IVaultSecretManager"/> instance used to control secret loading.</param>
+        /// <param name="asJson">Are the secrets stored as Vault JSON secrets</param>
+        /// <param name="secretLocationPaths">The paths for the secrets to load.</param>
+        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
+        public static IConfigurationBuilder AddVault(
+            this IConfigurationBuilder configurationBuilder,
+            IVaultClient client,
+            IVaultSecretManager manager,
+            bool asJson,
             params string[] secretLocationPaths)
         {
             if (configurationBuilder == null)
