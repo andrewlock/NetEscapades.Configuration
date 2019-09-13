@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using VaultSharp;
 using VaultSharp.Backends.System.Models;
 using Xunit;
@@ -34,7 +35,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath });
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath }, asJson: false);
             provider.Load();
 
             // Assert
@@ -56,23 +57,69 @@ namespace NetEscapades.Configuration.Vault.Tests
             client.Setup(c => c.ReadSecretAsync(SecretPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
             {
                 Data = new Dictionary<string, object> {
-                    { secret1Id, "Value1" },
+                    { secret1Id, "{ \"Key1\": [ \"Value1\", \"Value2\" ] }"},
                     { secret2Id, "{ \"test\": { \"value\": \"something\" } }" },
                 }
             });
 
             // Act
-            var provider = new VaultJsonConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath });
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath }, asJson: true);
             provider.Load();
 
             // Assert
             client.VerifyAll();
 
             var childKeys = provider.GetChildKeys(Enumerable.Empty<string>(), null).ToArray();
-            Assert.Equal(new[] { "test" }, childKeys);
             Assert.Equal("something", provider.Get("test:value"));
+            Assert.Equal("Value1", provider.Get("Key1:0"));
+            Assert.Equal("Value2", provider.Get("Key1:1"));
         }
 
+        [Theory]
+        [InlineData("invalid")]
+        [InlineData("{ \"invalid\"")]
+        [InlineData("{ \"invalid\"}")]
+        [InlineData("{ \"invalid\"]")]
+        [InlineData("[ \"invalid\"")]
+        public void ThrowsIfLoadingAsJsonAndInvalidJson(string invalidJson)
+        {
+            var client = new Mock<IVaultClient>(MockBehavior.Strict);
+            var secretId = GetSecretId("Secret1");
+
+            client.Setup(c => c.ReadSecretAsync(SecretPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
+            {
+                Data = new Dictionary<string, object> {{ secretId, invalidJson},}
+            });
+
+            // Act
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath }, asJson: true);
+
+            // Assert
+            Assert.Throws<JsonReaderException>(() => provider.Load());
+        }
+
+        [Theory]
+        [InlineData("{\"valid\": 123 }")]
+        [InlineData("{\"valid\": { \"sub\": \"val\" }}")]
+        [InlineData("{\"valid\": { \"sub\": [123,456,789] }}")]
+        public void DoesNotThrowIfValidJson(string invalidJson)
+        {
+            var client = new Mock<IVaultClient>(MockBehavior.Strict);
+            var secretId = GetSecretId("Secret1");
+
+            client.Setup(c => c.ReadSecretAsync(SecretPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
+            {
+                Data = new Dictionary<string, object> {{ secretId, invalidJson},}
+            });
+
+            // Act
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath }, asJson: true);
+
+            // Assert
+            provider.Load();
+        }
+
+        
         [Fact]
         public void LoadsAllSecretsFromVaultIfLooksLikeV2Data()
         {
@@ -92,7 +139,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath });
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath }, asJson: false);
             provider.Load();
 
             // Assert
@@ -120,7 +167,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new EndsWithOneVaultSecretManager(), new[] { SecretPath });
+            var provider = new VaultConfigurationProvider(client.Object, new EndsWithOneVaultSecretManager(), new[] { SecretPath }, asJson: false);
             provider.Load();
 
             // Assert
@@ -146,7 +193,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             }));
 
             // Act & Assert
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath });
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath }, asJson: false);
             provider.Load();
 
             client.VerifyAll();
@@ -171,7 +218,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath });
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath }, asJson: false);
             provider.Load();
 
             // Assert
@@ -183,7 +230,7 @@ namespace NetEscapades.Configuration.Vault.Tests
         [Fact]
         public void ConstructorThrowsForNullManager()
         {
-            Assert.Throws<ArgumentNullException>(() => new VaultConfigurationProvider(Mock.Of<IVaultClient>(), null, new[] { SecretPath }));
+            Assert.Throws<ArgumentNullException>(() => new VaultConfigurationProvider(Mock.Of<IVaultClient>(), null, new[] { SecretPath }, asJson: false));
         }
 
         private string GetSecretId(string name) => name;

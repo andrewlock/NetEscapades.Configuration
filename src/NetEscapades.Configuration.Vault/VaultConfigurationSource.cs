@@ -24,12 +24,15 @@ namespace NetEscapades.Configuration.Vault
         /// </summary>
         public IVaultSecretManager Manager { get; set; }
 
+        /// <summary>
+        /// Gets or sets whether the secrets are stored as JSON
+        /// </summary>
         public bool UsingJsonSecrets { get; set; }
 
         /// <inheritdoc />
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         {
-            return new VaultConfigurationProvider(Client, Manager, SecretLocationPaths);
+            return new VaultConfigurationProvider(Client, Manager, SecretLocationPaths, UsingJsonSecrets);
         }
     }
 }

@@ -16,19 +16,22 @@ namespace NetEscapades.Configuration.Vault
         const string DataKey = "data";
         const string MetadataKey = "metadata";
         private readonly IVaultClient _client;
-        private IEnumerable<string> _secretPaths;
+        private readonly IEnumerable<string> _secretPaths;
+        readonly bool _asJson;
         private readonly IVaultSecretManager _manager;
 
         /// <summary>
         /// Creates a new instance of <see cref="VaultConfigurationProvider"/>.
         /// </summary>
         /// <param name="client">The <see cref="IVaultClient"/> to use for retrieving values.</param>
-        /// <param name="secretPath">The secret path to read</param>
+        /// <param name="secretPaths">The secret paths to read</param>
         /// <param name="manager"></param>
-        public VaultConfigurationProvider(IVaultClient client, IVaultSecretManager manager, IEnumerable<string> secretPaths)
+        /// <param name="asJson">Read as JSON</param>
+        public VaultConfigurationProvider(IVaultClient client, IVaultSecretManager manager, IEnumerable<string> secretPaths, bool asJson)
         {
             _client = client ?? throw new ArgumentNullException(nameof(client));
             _secretPaths = secretPaths ?? throw new ArgumentNullException(nameof(secretPaths));
+            _asJson = asJson;
             _manager = manager ?? throw new ArgumentNullException(nameof(manager));
         }
 
@@ -67,9 +70,20 @@ namespace NetEscapades.Configuration.Vault
                 {
                     continue;
                 }
-
-                var key = _manager.GetKey(secret, kvp.Key);
-                data.Add(key, kvp.Value?.ToString());
+                
+                if (_asJson)
+                {
+                    var configInner = JsonConfigurationStringParser.Parse(kvp.Value?.ToString());
+                    foreach (var inner in configInner)
+                    {
+                        data.Add(inner.Key, inner.Value);
+                    }
+                }
+                else
+                {
+                    var key = _manager.GetKey(secret, kvp.Key);
+                    data.Add(key, kvp.Value?.ToString());
+                }
             }
         }
 
