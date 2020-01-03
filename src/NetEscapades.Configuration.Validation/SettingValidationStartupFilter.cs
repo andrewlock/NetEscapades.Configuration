@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !NETSTANDARD2_1
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,3 +35,4 @@ namespace NetEscapades.Configuration.Validation
         }
     }
 }
+#endif
