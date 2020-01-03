@@ -24,6 +24,8 @@ namespace WebDemoProject2_0
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.ConfigureValidatableSetting<TestSettings>(Configuration);
+            services.UseConfigurationValidation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

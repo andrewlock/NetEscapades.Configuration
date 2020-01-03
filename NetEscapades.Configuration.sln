@@ -44,6 +44,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEscapades.Configuration.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEscapades.Configuration.Validation.Tests", "test\NetEscapades.Configuration.Validation.Tests\NetEscapades.Configuration.Validation.Tests.csproj", "{B6324876-E265-4E3B-8F89-3C622D6D64A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDemoProject3_0", "sample\WebDemoProject3_0\WebDemoProject3_0.csproj", "{6B10A571-58ED-4D38-A37C-ACFB228201C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +112,10 @@ Global
 		{B6324876-E265-4E3B-8F89-3C622D6D64A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6324876-E265-4E3B-8F89-3C622D6D64A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6324876-E265-4E3B-8F89-3C622D6D64A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B10A571-58ED-4D38-A37C-ACFB228201C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B10A571-58ED-4D38-A37C-ACFB228201C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B10A571-58ED-4D38-A37C-ACFB228201C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B10A571-58ED-4D38-A37C-ACFB228201C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +136,7 @@ Global
 		{807FB0B8-AA3E-4D16-BC3F-15E3870714A9} = {DCDD1E4A-C585-4DA3-B405-7537B2D9EDE1}
 		{4D257914-5619-43EE-AE9E-233C1228F2BC} = {38724ECE-2125-4F0C-B200-193A1D3F2466}
 		{B6324876-E265-4E3B-8F89-3C622D6D64A1} = {EC37A461-F687-42DB-B1D8-7DDB54B8755D}
+		{6B10A571-58ED-4D38-A37C-ACFB228201C1} = {DCDD1E4A-C585-4DA3-B405-7537B2D9EDE1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {673EE0BF-430A-436D-AC57-5D76E3DE9395}
