@@ -66,12 +66,11 @@ Task("Test")
     .IsDependentOn("Build")
     .Does(() =>
     {
-        var projects = GetFiles("./test/**/*Tests.csproj");
-        foreach(var project in projects)
+        var solutions = GetFiles("./*.sln");
+        foreach(var solution in solutions)
         {
-            Information("Testing project " + project);
             DotNetCoreTest(
-                project.ToString(),
+                solution.ToString(),
                 new DotNetCoreTestSettings()
                 {
                     // Currently not possible? https://github.com/dotnet/cli/issues/3114
@@ -91,11 +90,11 @@ Task("Pack")
     .IsDependentOn("Test")
     .Does(() =>
     {
-        foreach (var project in GetFiles("./src/**/*.csproj"))
+        var solutions = GetFiles("./*.sln");
+        foreach(var solution in solutions)
         {
-            Information("Packing project " + project);
             DotNetCorePack(
-                project.ToString(),
+                solution.ToString(),
                 new DotNetCorePackSettings()
                 {
                     Configuration = configuration,
