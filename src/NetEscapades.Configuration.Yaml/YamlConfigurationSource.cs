@@ -9,7 +9,7 @@ namespace NetEscapades.Configuration.Yaml
     {
         public override IConfigurationProvider Build(IConfigurationBuilder builder)
         {
-            FileProvider = FileProvider ?? builder.GetFileProvider();
+            EnsureDefaults(builder);
             return new YamlConfigurationProvider(this);
         }
     }
