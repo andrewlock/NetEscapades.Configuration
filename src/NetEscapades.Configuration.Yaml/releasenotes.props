@@ -1,29 +1,10 @@
 <Project>
   <PropertyGroup>
-    <PackageReleaseNotes Condition="'$(VersionPrefix)' == '2.0.0'">
+    <PackageReleaseNotes Condition="'$(VersionPrefix)' == '2.0.1'">
       <![CDATA[
 Features:
-* Upgrade YamlDotNet to 6.1.2 - this is a breaking change in the dependency as the YamlDotNet.Signed and YamlDotNet packages were merged
-* Update supported frameworks - only supports .NET 461, .NET 472, and .NET Standard 2.0 (dropped support for 1.x)
+* Fix bug #49 causing exception when using an absolute file path for YAML file path, where directory did not exist.
 
-The following values are interpreted as 'null' during parsing (as per v1.1 of the spec http://yaml.org/type/null.html)
-
-```yaml
-nullValue1: Null
-nullValue2: null
-nullValue3: Null
-nullValue4: ~
-```
-
-Yaml is case sensitive, so be aware that the following values are NOT parsed as null. 
-Instead they are parsed as their string equivalent (NuLL, NUll, and empty strings)
-
-```yaml
-notNull1: NuLL
-notNull2: NUll
-notNull3: 
-notNull4: ''
-```
 ]]>
     </PackageReleaseNotes>
   </PropertyGroup>

@@ -72,21 +72,24 @@ namespace Microsoft.Extensions.Configuration
             {
                 throw new ArgumentException(Resources.FormatError_InvalidFilePath(), nameof(path));
             }
-
-            if (provider == null && Path.IsPathRooted(path))
+            
+            return builder.AddYamlFile(s =>
             {
-                provider = new PhysicalFileProvider(Path.GetDirectoryName(path));
-                path = Path.GetFileName(path);
-            }
-            var source = new YamlConfigurationSource
-            {
-                FileProvider = provider,
-                Path = path,
-                Optional = optional,
-                ReloadOnChange = reloadOnChange
-            };
-            builder.Add(source);
-            return builder;
+                s.FileProvider = provider;
+                s.Path = path;
+                s.Optional = optional;
+                s.ReloadOnChange = reloadOnChange;
+                s.ResolveFileProvider();
+            });
         }
+        
+        /// <summary>
+        /// Adds a YAML configuration source to <paramref name="builder"/>.
+        /// </summary>
+        /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
+        /// <param name="configureSource">Configures the source.</param>
+        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
+        public static IConfigurationBuilder AddYamlFile(this IConfigurationBuilder builder, Action<YamlConfigurationSource> configureSource)
+            => builder.Add(configureSource);
     }
 }

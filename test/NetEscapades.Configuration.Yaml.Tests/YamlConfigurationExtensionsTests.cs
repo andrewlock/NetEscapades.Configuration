@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.FileProviders;
 using NetEscapades.Configuration.Yaml;
 using Xunit;
 
@@ -26,7 +27,7 @@ namespace NetEscapades.Configuration.Yaml
         }
 
         [Fact]
-        public void AddYamlFile_ThrowsIfFileDoesNotExistAtPath()
+        public void AddYamlFile_ThrowsIfFileDoesNotExistAtPathAndIsOptional()
         {
             // Arrange
             var path = "file-does-not-exist.Yaml";
@@ -34,6 +35,28 @@ namespace NetEscapades.Configuration.Yaml
             // Act and Assert
             var ex = Assert.Throws<FileNotFoundException>(() => new ConfigurationBuilder().AddYamlFile(path).Build());
             Assert.StartsWith($"The configuration file '{path}' was not found and is not optional.", ex.Message);
+        }
+        
+        [Fact]
+        public void AddYamlFile_DoesNotThrowIfFileDoesNotExistAndIsOptional()
+        {
+            // Arrange
+            var path = "file-does-not-exist.Yaml";
+
+            // Act and Assert
+            new ConfigurationBuilder().AddYamlFile(path, optional: true).Build();
+        }
+        
+        [Fact]
+        public void AddYamlFile_DoesNotThrowIfAbsolutePathDirectoryDoesNotExist()
+        {
+            // Arrange
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "does", "not", "exist", "file-does-not-exist.Yaml");
+            
+            // Act and Assert
+            new ConfigurationBuilder()
+                .AddYamlFile(path, optional: true)
+                .Build();
         }
     }
 }
