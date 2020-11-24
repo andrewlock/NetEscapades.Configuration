@@ -161,7 +161,7 @@ namespace NetEscapades.Configuration.Yaml
                           street: {Something street
                           zipcode: '12345'
                          ";
-            var exception = Assert.Throws<FormatException>(() => LoadProvider(yaml));
+            var exception = Assert.Throws<Exception>(() => LoadProvider(yaml));
             Assert.NotNull(exception.Message);
         }
 

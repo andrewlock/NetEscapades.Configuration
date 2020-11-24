@@ -30,3 +30,5 @@ project.lock.json
 .testPublish/
 
 tools/
+
+.idea/
