@@ -1,9 +1,9 @@
 <Project>
   <PropertyGroup>
-    <PackageReleaseNotes Condition="'$(VersionPrefix)' == '2.0.1'">
+    <PackageReleaseNotes Condition="'$(VersionPrefix)' == '2.1.0'">
       <![CDATA[
 Features:
-* Fix bug #49 causing exception when using an absolute file path for YAML file path, where directory did not exist.
+* Update YamlDotNet to 9.1.0 (#57). Thanks @joaofx for the contribution!
 
 ]]>
     </PackageReleaseNotes>
