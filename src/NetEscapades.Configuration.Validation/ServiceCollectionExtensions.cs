@@ -44,6 +44,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.Configure<TOptions>(configuration);
             services.AddSingleton<TOptions>(ctx => ctx.GetRequiredService<IOptions<TOptions>>().Value);
             services.AddSingleton<IValidatable>(ctx => ctx.GetRequiredService<IOptions<TOptions>>().Value);
+            services.AddScoped<TOptions>(ctx => ctx.GetRequiredService<IOptionsMonitor<TOptions>>().CurrentValue);
+            services.AddScoped<IValidatable>(ctx => ctx.GetRequiredService<IOptionsMonitor<TOptions>>().CurrentValue);
             return services;
         }
     }
