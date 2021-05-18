@@ -152,6 +152,78 @@ namespace NetEscapades.Configuration.Yaml
         }
 
         [Fact]
+        public void ShouldMergeKeysInsideAnObject()
+        {
+            var yaml = @"---
+                defaults: &defaults
+                  A: 1
+                  B: 2
+                  D: 
+                    E: 78
+                    F: 79
+                mapping:
+                  << : *defaults
+                  A: 23
+                  C: 99
+                  D:
+                    E: 56
+                    G:
+                      - 1
+                      - 2";
+
+            var yamlConfigSrc = LoadProvider(yaml);
+
+            Assert.Equal("23", yamlConfigSrc.Get("mapping:A"));
+            Assert.Equal("2", yamlConfigSrc.Get("mapping:B"));
+            Assert.Equal("99", yamlConfigSrc.Get("mapping:C"));
+            Assert.Equal("56", yamlConfigSrc.Get("mapping:D:E"));
+            Assert.Equal("79", yamlConfigSrc.Get("mapping:D:F"));
+            Assert.Equal("1", yamlConfigSrc.Get("mapping:D:G:0"));
+            Assert.Equal("2", yamlConfigSrc.Get("mapping:D:G:1"));
+        }
+
+        [Fact]
+        public void ShouldMergeKeysInsideASequence()
+        {
+            var yaml = @"---
+                defaults: &defaults
+                  A: 1
+                  B: 2
+                  D: 
+                    E: 78
+                    F: 79
+                mapping:
+                  - <<: *defaults
+                    A: 23
+                    C: 99
+                  - A: 2
+                    B: 3
+                    D:
+                      E: 4
+                      F: 5
+                  - <<: *defaults";
+
+            var yamlConfigSrc = LoadProvider(yaml);
+
+            Assert.Equal("23", yamlConfigSrc.Get("mapping:0:A"));
+            Assert.Equal("2", yamlConfigSrc.Get("mapping:0:B"));
+            Assert.Equal("99", yamlConfigSrc.Get("mapping:0:C"));
+            Assert.Equal("78", yamlConfigSrc.Get("mapping:0:D:E"));
+            Assert.Equal("79", yamlConfigSrc.Get("mapping:0:D:F"));
+
+            Assert.Equal("2", yamlConfigSrc.Get("mapping:1:A"));
+            Assert.Equal("3", yamlConfigSrc.Get("mapping:1:B"));
+            Assert.Throws<InvalidOperationException>(() => yamlConfigSrc.Get("mapping:1:C"));
+            Assert.Equal("4", yamlConfigSrc.Get("mapping:1:D:E"));
+            Assert.Equal("5", yamlConfigSrc.Get("mapping:1:D:F"));
+
+            Assert.Equal("1", yamlConfigSrc.Get("mapping:2:A"));
+            Assert.Equal("2", yamlConfigSrc.Get("mapping:2:B"));
+            Assert.Equal("78", yamlConfigSrc.Get("mapping:2:D:E"));
+            Assert.Equal("79", yamlConfigSrc.Get("mapping:2:D:F"));
+        }
+
+        [Fact]
         public void ThrowExceptionWhenUnexpectedFirstCharacterInScalarValue()
         {
             var yaml = @"
