@@ -10,6 +10,7 @@ namespace NetEscapades.Configuration.Yaml
     internal class YamlConfigurationFileParser
     {
         private readonly IDictionary<string, string> _data = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        private readonly HashSet<string> _mergedKeys = new HashSet<string>();
         private readonly Stack<string> _context = new Stack<string>();
         private string _currentPath;
 
@@ -61,7 +62,13 @@ namespace NetEscapades.Configuration.Yaml
             EnterContext(context);
             var currentKey = _currentPath;
 
-            if (_data.ContainsKey(currentKey))
+            if (currentKey.Contains("<<"))
+            {
+                currentKey = currentKey.Replace("<<:", "");
+                _mergedKeys.Add(currentKey);
+            }
+
+            if (_data.ContainsKey(currentKey) && !_mergedKeys.Contains(currentKey))
             {
                 throw new FormatException(Resources.FormatError_KeyIsDuplicated(currentKey));
             }
