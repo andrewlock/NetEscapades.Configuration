@@ -483,12 +483,12 @@ namespace Microsoft.Extensions.Configuration
                 throw new ArgumentException($"{nameof(vaultSecretMappings)} cannot be empty", nameof(vaultSecretMappings));
             }
             
-            var nonEmptyPrefixes = vaultSecretMappings
-                .Select(m => m.Prefix)
-                .Where(p => !string.IsNullOrWhiteSpace(p))
-                .ToArray();
-
-            if (nonEmptyPrefixes.Length != nonEmptyPrefixes.Distinct().Count())
+            var duplicatePrefixes = vaultSecretMappings
+                .Where(p => !string.IsNullOrWhiteSpace(p.Prefix))
+                .GroupBy(x => x.Prefix)
+                .Where(g => g.Count() > 1)
+                .Select(g => g.Key)
+                .ToList();
             {
                 throw new ArgumentException($"{nameof(vaultSecretMappings)} prefixes must be unique", nameof(vaultSecretMappings));
             }
