@@ -15,7 +15,7 @@ namespace NetEscapades.Configuration.Vault.Tests
 {
     public class VaultConfigurationTest
     {
-        private static readonly VaultSecretMapping SecretPathMapping = new VaultSecretMapping(string.Empty, "/secrets/Development/testapp");
+        private const string SecretPath = "/secrets/Development/testapp";
         private const string DataKey = "data";
         private const string MetaDataKey = "metadata";
 
@@ -26,7 +26,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             var secret1Id = GetSecretId("Secret1");
             var secret2Id = GetSecretId("Secret2");
 
-            client.Setup(c => c.ReadSecretAsync(SecretPathMapping.VaultPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
+            client.Setup(c => c.ReadSecretAsync(SecretPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
             {
                 Data = new Dictionary<string, object> {
                     { secret1Id, "Value1" },
@@ -35,7 +35,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPathMapping }, asJson: false);
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: false);
             provider.Load();
 
             // Assert
@@ -54,7 +54,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             var secret1Id = GetSecretId("Secret1");
             var secret2Id = GetSecretId("Secret2");
 
-            client.Setup(c => c.ReadSecretAsync(SecretPathMapping.VaultPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
+            client.Setup(c => c.ReadSecretAsync(SecretPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
             {
                 Data = new Dictionary<string, object> {
                     { secret1Id, "{ \"Key1\": [ \"Value1\", \"Value2\" ] }"},
@@ -63,7 +63,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPathMapping }, asJson: true);
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: true);
             provider.Load();
 
             // Assert
@@ -86,13 +86,13 @@ namespace NetEscapades.Configuration.Vault.Tests
             var client = new Mock<IVaultClient>(MockBehavior.Strict);
             var secretId = GetSecretId("Secret1");
 
-            client.Setup(c => c.ReadSecretAsync(SecretPathMapping.VaultPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
+            client.Setup(c => c.ReadSecretAsync(SecretPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
             {
                 Data = new Dictionary<string, object> {{ secretId, invalidJson},}
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPathMapping }, asJson: true);
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: true);
 
             // Assert
             Assert.Throws<JsonReaderException>(() => provider.Load());
@@ -107,13 +107,13 @@ namespace NetEscapades.Configuration.Vault.Tests
             var client = new Mock<IVaultClient>(MockBehavior.Strict);
             var secretId = GetSecretId("Secret1");
 
-            client.Setup(c => c.ReadSecretAsync(SecretPathMapping.VaultPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
+            client.Setup(c => c.ReadSecretAsync(SecretPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
             {
                 Data = new Dictionary<string, object> {{ secretId, invalidJson},}
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPathMapping }, asJson: true);
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: true);
 
             // Assert
             provider.Load();
@@ -127,7 +127,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             var secret1Id = GetSecretId("Secret1");
             var secret2Id = GetSecretId("Secret2");
 
-            client.Setup(c => c.ReadSecretAsync(SecretPathMapping.VaultPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
+            client.Setup(c => c.ReadSecretAsync(SecretPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
             {
                 Data = new Dictionary<string, object> {
                     {DataKey, new JObject {
@@ -139,7 +139,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPathMapping }, asJson: false);
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: false);
             provider.Load();
 
             // Assert
@@ -158,7 +158,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             var secret1Id = GetSecretId("Secret1");
             var secret2Id = GetSecretId("Secret2");
 
-            client.Setup(c => c.ReadSecretAsync(SecretPathMapping.VaultPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
+            client.Setup(c => c.ReadSecretAsync(SecretPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
             {
                 Data = new Dictionary<string, object> {
                     { secret1Id, "Value1" },
@@ -167,7 +167,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new EndsWithOneVaultSecretManager(), new[] { SecretPathMapping }, asJson: false);
+            var provider = new VaultConfigurationProvider(client.Object, new EndsWithOneVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: false);
             provider.Load();
 
             // Assert
@@ -185,7 +185,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             var secret1Id = GetSecretId("Secret1");
             var value = "Value1";
 
-            client.Setup(c => c.ReadSecretAsync(SecretPathMapping.VaultPath)).Returns((string path) => Task.FromResult(new Secret<Dictionary<string, object>>
+            client.Setup(c => c.ReadSecretAsync(SecretPath)).Returns((string path) => Task.FromResult(new Secret<Dictionary<string, object>>
             {
                 Data = new Dictionary<string, object> {
                     { secret1Id, value },
@@ -193,7 +193,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             }));
 
             // Act & Assert
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPathMapping }, asJson: false);
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: false);
             provider.Load();
 
             client.VerifyAll();
@@ -210,7 +210,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             var client = new Mock<IVaultClient>(MockBehavior.Strict);
             var secret1Id = GetSecretId("Section:Secret1");
 
-            client.Setup(c => c.ReadSecretAsync(SecretPathMapping.VaultPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
+            client.Setup(c => c.ReadSecretAsync(SecretPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
             {
                 Data = new Dictionary<string, object> {
                     { secret1Id, "Value1" },
@@ -218,7 +218,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPathMapping }, asJson: false);
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: false);
             provider.Load();
 
             // Assert
@@ -233,7 +233,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             var client = new Mock<IVaultClient>(MockBehavior.Strict);
             var secret1Id = GetSecretId("Secret1");
 
-            client.Setup(c => c.ReadSecretAsync(SecretPathMapping.VaultPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
+            client.Setup(c => c.ReadSecretAsync(SecretPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
             {
                 Data = new Dictionary<string, object> {
                     { secret1Id, "Value1" },
@@ -241,7 +241,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var secretMappingWithPrefix = new VaultSecretMapping("prefix", SecretPathMapping.VaultPath);
+            var secretMappingWithPrefix = new VaultSecretMapping("prefix", SecretPath);
             var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { secretMappingWithPrefix }, asJson: false);
             provider.Load();
 
@@ -254,7 +254,7 @@ namespace NetEscapades.Configuration.Vault.Tests
         [Fact]
         public void ConstructorThrowsForNullManager()
         {
-            Assert.Throws<ArgumentNullException>(() => new VaultConfigurationProvider(Mock.Of<IVaultClient>(), null, new[] { SecretPathMapping }, asJson: false));
+            Assert.Throws<ArgumentNullException>(() => new VaultConfigurationProvider(Mock.Of<IVaultClient>(), null, new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: false));
         }
 
         private string GetSecretId(string name) => name;
