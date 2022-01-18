@@ -489,8 +489,10 @@ namespace Microsoft.Extensions.Configuration
                 .Where(g => g.Count() > 1)
                 .Select(g => g.Key)
                 .ToList();
+            
+            if (duplicatePrefixes.Any())
             {
-                throw new ArgumentException($"{nameof(vaultSecretMappings)} prefixes must be unique", nameof(vaultSecretMappings));
+                throw new ArgumentException($"Prefixes '{string.Join(";", duplicatePrefixes)}' are duplicated", nameof(vaultSecretMappings));
             }
             
             if (manager == null)
