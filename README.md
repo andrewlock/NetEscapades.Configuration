@@ -204,13 +204,13 @@ public static IWebHost BuildWebHost(string[] args) =>
         .ConfigureAppConfiguration((ctx, builder)=> 
         {
             // build the initial config
-            var builtConfig = config.Build();
+            var builtConfig = builder.Build();
 
             builder.AddVaultWithAppRole(
-                config["VaultUri"], //The Vault uri with port
-                config["RoleId"], // The role_id for the app
-                config["SecretId"], // The secret_iId for the app
-                config["SecretPath"] // secret paths to load
+                builtConfig["VaultUri"], //The Vault uri with port
+                builtConfig["RoleId"], // The role_id for the app
+                builtConfig["SecretId"], // The secret_iId for the app
+                builtConfig["SecretPath"] // secret paths to load
                 );
         })
         .UseStartup<Startup>()
