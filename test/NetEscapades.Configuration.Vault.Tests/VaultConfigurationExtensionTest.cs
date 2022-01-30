@@ -28,6 +28,23 @@ namespace NetEscapades.Configuration.Vault.Tests
         }
         
         [Fact]
+        public void ConfigurationDoesNotOnDuplicateEmptyPrefixes()
+        {
+            var configurationMock = Mock.Of<IConfigurationBuilder>();
+            var client = Mock.Of<IVaultClient>();
+            var secretManager = Mock.Of<IVaultSecretManager>();
+            var mappingWithDuplicate = new []
+            {
+                new VaultSecretMapping("", "someValue1"),
+                new VaultSecretMapping(null, "someValue2"),
+                new VaultSecretMapping("", "someValue3"),
+                new VaultSecretMapping(null, "someValue2"),
+            };
+
+            configurationMock.AddVault(client, secretManager, false, mappingWithDuplicate);
+        }
+        
+        [Fact]
         public void ConfigurationFailsIfDependenciesAreNull()
         {
             var configurationMock = Mock.Of<IConfigurationBuilder>();
