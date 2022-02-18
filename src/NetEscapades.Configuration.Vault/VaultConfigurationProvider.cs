@@ -16,7 +16,7 @@ namespace NetEscapades.Configuration.Vault
         const string DataKey = "data";
         const string MetadataKey = "metadata";
         private readonly IVaultClient _client;
-        private readonly IEnumerable<string> _secretPaths;
+        private readonly IEnumerable<VaultSecretMapping> _secretPaths;
         readonly bool _asJson;
         private readonly IVaultSecretManager _manager;
 
@@ -27,7 +27,7 @@ namespace NetEscapades.Configuration.Vault
         /// <param name="secretPaths">The secret paths to read</param>
         /// <param name="manager"></param>
         /// <param name="asJson">Read as JSON</param>
-        public VaultConfigurationProvider(IVaultClient client, IVaultSecretManager manager, IEnumerable<string> secretPaths, bool asJson)
+        public VaultConfigurationProvider(IVaultClient client, IVaultSecretManager manager, IEnumerable<VaultSecretMapping> secretPaths, bool asJson)
         {
             _client = client ?? throw new ArgumentNullException(nameof(client));
             _secretPaths = secretPaths ?? throw new ArgumentNullException(nameof(secretPaths));
@@ -42,7 +42,7 @@ namespace NetEscapades.Configuration.Vault
             var data = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             foreach (var secretPath in _secretPaths)
             {
-                var secret = await _client.ReadSecretAsync(secretPath).ConfigureAwait(false);
+                var secret = await _client.ReadSecretAsync(secretPath.VaultPath).ConfigureAwait(false);
 
                 var secretData = secret.Data;
 
@@ -51,18 +51,19 @@ namespace NetEscapades.Configuration.Vault
                     && secretData.TryGetValue(DataKey, out var val)
                     && val is IDictionary<string, JToken> v2Data)
                 {
-                    AddSecrets(data, secret, v2Data);
+                    AddSecrets(data, secretPath.Prefix, secret, v2Data);
                 }
                 else
                 {
-                    AddSecrets(data, secret, secretData);
+                    AddSecrets(data, secretPath.Prefix, secret, secretData);
                 }
             }
 
             Data = data;
         }
 
-        private void AddSecrets<T>(Dictionary<string, string> data, Secret<Dictionary<string, object>> secret, IDictionary<string, T> secretData)
+        private void AddSecrets<T>(Dictionary<string, string> data, string pathPrefix,
+            Secret<Dictionary<string, object>> secret, IDictionary<string, T> secretData)
         {
             foreach (var kvp in secretData)
             {
@@ -76,16 +77,22 @@ namespace NetEscapades.Configuration.Vault
                     var configInner = JsonConfigurationStringParser.Parse(kvp.Value?.ToString());
                     foreach (var inner in configInner)
                     {
-                        data.Add(inner.Key, inner.Value);
+                        var key = string.IsNullOrWhiteSpace(pathPrefix)
+                            ? inner.Key
+                            : $"{pathPrefix}:{inner.Key}";
+                        
+                        data.Add(key, inner.Value);
                     }
                 }
                 else
                 {
-                    var key = _manager.GetKey(secret, kvp.Key);
+                    var key = string.IsNullOrWhiteSpace(pathPrefix)
+                        ? _manager.GetKey(secret, kvp.Key)
+                        : $"{pathPrefix}:{_manager.GetKey(secret, kvp.Key)}";
+                        
                     data.Add(key, kvp.Value?.ToString());
                 }
             }
         }
-
     }
 }

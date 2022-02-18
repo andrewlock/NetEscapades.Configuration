@@ -17,7 +17,7 @@ namespace NetEscapades.Configuration.Vault
         /// <summary>
         /// Gets or sets the secrets path (including storage location) for all of the secrets to load
         /// </summary>
-        public IEnumerable<string> SecretLocationPaths { get; set; }
+        public IEnumerable<VaultSecretMapping> SecretPathMappings { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="IVaultSecretManager"/> instance used to control secret loading.
@@ -32,7 +32,7 @@ namespace NetEscapades.Configuration.Vault
         /// <inheritdoc />
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         {
-            return new VaultConfigurationProvider(Client, Manager, SecretLocationPaths, UsingJsonSecrets);
+            return new VaultConfigurationProvider(Client, Manager, SecretPathMappings, UsingJsonSecrets);
         }
     }
 }

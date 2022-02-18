@@ -35,7 +35,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath }, asJson: false);
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: false);
             provider.Load();
 
             // Assert
@@ -63,7 +63,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath }, asJson: true);
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: true);
             provider.Load();
 
             // Assert
@@ -92,7 +92,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath }, asJson: true);
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: true);
 
             // Assert
             Assert.Throws<JsonReaderException>(() => provider.Load());
@@ -113,7 +113,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath }, asJson: true);
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: true);
 
             // Assert
             provider.Load();
@@ -139,7 +139,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath }, asJson: false);
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: false);
             provider.Load();
 
             // Assert
@@ -167,7 +167,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new EndsWithOneVaultSecretManager(), new[] { SecretPath }, asJson: false);
+            var provider = new VaultConfigurationProvider(client.Object, new EndsWithOneVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: false);
             provider.Load();
 
             // Assert
@@ -193,7 +193,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             }));
 
             // Act & Assert
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath }, asJson: false);
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: false);
             provider.Load();
 
             client.VerifyAll();
@@ -218,7 +218,7 @@ namespace NetEscapades.Configuration.Vault.Tests
             });
 
             // Act
-            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { SecretPath }, asJson: false);
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: false);
             provider.Load();
 
             // Assert
@@ -228,9 +228,33 @@ namespace NetEscapades.Configuration.Vault.Tests
         }
 
         [Fact]
+        public void AddsPrefixToSecretKeysIfDefined()
+        {
+            var client = new Mock<IVaultClient>(MockBehavior.Strict);
+            var secret1Id = GetSecretId("Secret1");
+
+            client.Setup(c => c.ReadSecretAsync(SecretPath)).ReturnsAsync(new Secret<Dictionary<string, object>>
+            {
+                Data = new Dictionary<string, object> {
+                    { secret1Id, "Value1" },
+                }
+            });
+
+            // Act
+            var secretMappingWithPrefix = new VaultSecretMapping("prefix", SecretPath);
+            var provider = new VaultConfigurationProvider(client.Object, new DefaultVaultSecretManager(), new[] { secretMappingWithPrefix }, asJson: false);
+            provider.Load();
+
+            // Assert
+            client.VerifyAll();
+
+            Assert.Equal("Value1", provider.Get("prefix:Secret1"));
+        }
+
+        [Fact]
         public void ConstructorThrowsForNullManager()
         {
-            Assert.Throws<ArgumentNullException>(() => new VaultConfigurationProvider(Mock.Of<IVaultClient>(), null, new[] { SecretPath }, asJson: false));
+            Assert.Throws<ArgumentNullException>(() => new VaultConfigurationProvider(Mock.Of<IVaultClient>(), null, new[] { new VaultSecretMapping(string.Empty, SecretPath) }, asJson: false));
         }
 
         private string GetSecretId(string name) => name;
