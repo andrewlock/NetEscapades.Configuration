@@ -8,7 +8,7 @@
     <PackageId>NetEscapades.Configuration.Vault</PackageId>
     <PackageTags>configuration;Vault;Hashicorp</PackageTags>
     <PackageProjectUrl>https://github.com/andrewlock/NetEscapades.Configuration/tree/master/src/NetEscapades.Configuration.Vault</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/andrewlock/NetEscapades.Configuration/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/andrewlock/NetEscapades.Configuration</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
