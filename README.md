@@ -191,7 +191,7 @@ PM> Install-Package NetEscapades.Configuration.Vault
 When you install the package, it should be added to your _csproj_. Alternatively, you can add it directly by adding:
 
 ```xml
-<PackageReference Include="NetEscapades.Configuration.Vault" Version="0.8.0" />
+<PackageReference Include="NetEscapades.Configuration.Vault" Version="0.9.0" />
 ```
 
 You can load secrets from a Vault instance as part of your configuration build. You can use any supported authentication method supported by [`VaultSharp`](https://github.com/rajanadar/VaultSharp), which is used under the hood, but an extension method exists for using `AppRole` specifically.

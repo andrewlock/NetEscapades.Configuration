@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>Configuration provider implementation to use with Hashicorp Vault.</Description>
-    <VersionPrefix>0.8.1</VersionPrefix>
+    <VersionPrefix>0.9.0</VersionPrefix>
     <TargetFrameworks>net461;net472;netstandard2.0</TargetFrameworks>
     <AssemblyName>NetEscapades.Configuration.Vault</AssemblyName>
     <PackageId>NetEscapades.Configuration.Vault</PackageId>
