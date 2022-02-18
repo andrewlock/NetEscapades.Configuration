@@ -1,18 +1,8 @@
 # NetEscapades.Configuration
 
-[![AzurePipelines](https://dev.azure.com/andrewlock/NetEscapades.Configuration/_apis/build/status/andrewlock.NetEscapades.Configuration?branchName=master)](https://dev.azure.com/andrewlock/NetEscapades.Configuration/_build/latest?definitionId=1)
-
-[![AppVeyor build status][appveyor-badge]](https://ci.appveyor.com/project/andrewlock/netescapades-configuration)
-
 [![NuGet][yaml-nuget-badge]][yaml-nuget] 
 [![NuGet][remote-nuget-badge]][remote-nuget] 
 [![NuGet][vault-nuget-badge]][vault-nuget] 
-
-[![MyGet][yaml-myget-badge]][yaml-myget]
-[![MyGet][remote-myget-badge]][remote-myget]
-[![MyGet][vault-myget-badge]][vault-myget]
-
-[appveyor-badge]: https://ci.appveyor.com/api/projects/status/9klf04bxncm2pgm4?svg=true
 
 [yaml-nuget]: https://www.nuget.org/packages/NetEscapades.Configuration.Yaml/
 [yaml-nuget-badge]: https://img.shields.io/nuget/v/NetEscapades.Configuration.Yaml.svg?label=NetEscapades.Configuration.Yaml
@@ -22,13 +12,6 @@
 
 [vault-nuget]: https://www.nuget.org/packages/NetEscapades.Configuration.Vault/
 [vault-nuget-badge]: https://img.shields.io/nuget/v/NetEscapades.Configuration.Vault.svg?label=NetEscapades.Configuration.Vault
-
-[yaml-myget]: https://www.myget.org/feed/andrewlock-ci/package/nuget/NetEscapades.Configuration.Yaml
-[yaml-myget-badge]: https://img.shields.io/myget/andrewlock-ci/v/NetEscapades.Configuration.Yaml.svg?label=MyGet+Yaml
-[remote-myget]: https://www.myget.org/feed/andrewlock-ci/package/nuget/NetEscapades.Configuration.Remote
-[remote-myget-badge]: https://img.shields.io/myget/andrewlock-ci/v/NetEscapades.Configuration.Remote.svg?label=MyGet+Remote
-[vault-myget]: https://www.myget.org/feed/andrewlock-ci/package/nuget/NetEscapades.Configuration.Vault
-[vault-myget-badge]: https://img.shields.io/myget/andrewlock-ci/v/NetEscapades.Configuration.Vault.svg?label=MyGet+Vault
 
 Additional configuration providers to use with ASP.NET Core `Microsoft.Extensions.Configuration`.
 
