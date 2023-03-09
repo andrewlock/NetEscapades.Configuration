@@ -1,9 +1,9 @@
 <Project>
   <PropertyGroup>
-    <PackageReleaseNotes Condition="'$(VersionPrefix)' == '2.2.0'">
+    <PackageReleaseNotes Condition="'$(VersionPrefix)' == '3.0.0'">
       <![CDATA[
 Features:
-* Update YamlDotNet to 11.2.1 (#68). Thanks @niemyjski for the contribution!
+* Update YamlDotNet to 13.0.1 (#74)
 
 ]]>
     </PackageReleaseNotes>
