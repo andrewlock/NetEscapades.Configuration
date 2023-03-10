@@ -41,6 +41,8 @@ jobs:
             5.0.x
             6.0.x
             7.0.103
+      - name: Force globaljson
+        run: dotnet new globaljson --sdk-version "7.0.103" --force
       - name: Cache .nuke/temp, ~/.nuget/packages
         uses: actions/cache@v2
         with:
@@ -71,6 +73,8 @@ jobs:
             5.0.x
             6.0.x
             7.0.103
+      - name: Force globaljson
+        run: dotnet new globaljson --sdk-version "7.0.103" --force
       - name: Cache .nuke/temp, ~/.nuget/packages
         uses: actions/cache@v2
         with:
@@ -101,6 +105,8 @@ jobs:
             5.0.x
             6.0.x
             7.0.103
+      - name: Force globaljson
+        run: dotnet new globaljson --sdk-version "7.0.103" --force
       - name: Cache .nuke/temp, ~/.nuget/packages
         uses: actions/cache@v2
         with:
