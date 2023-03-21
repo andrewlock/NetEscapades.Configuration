@@ -1,20 +1,15 @@
-using System;
-using System.IO;
-using Microsoft.Extensions.Configuration;
-using YamlDotNet.Core;
-
 namespace NetEscapades.Configuration.Yaml
 {
     /// <summary>
-    /// A YAML file based <see cref="FileConfigurationProvider"/>.
+    /// A YAML stream based <see cref="YamlStreamConfigurationProvider"/>.
     /// </summary>
-    public class YamlConfigurationProvider : FileConfigurationProvider
+    public class YamlStreamConfigurationProvider : StreamConfigurationProvider
     {
-        public YamlConfigurationProvider(YamlConfigurationSource source) : base(source) { }
+        public YamlStreamConfigurationProvider(YamlStreamConfigurationSource source) : base(source) { }
 
         public override void Load(Stream stream)
         {
-            var parser = new YamlConfigurationFileParser();
+            var parser = new YamlConfigurationStreamParser();
             try
             {
                 Data = parser.Parse(stream);

@@ -11,9 +11,9 @@ namespace NetEscapades.Configuration.Yaml
 {
     public class YamlConfigurationTest
     {
-        private YamlConfigurationProvider LoadProvider(string Yaml)
+        private YamlFileConfigurationProvider LoadProvider(string Yaml)
         {
-            var p = new YamlConfigurationProvider(new YamlConfigurationSource { Optional = true });
+            var p = new YamlFileConfigurationProvider(new YamlFileConfigurationSource { Optional = true });
             p.Load(TestStreamHelpers.StringToStream(Yaml));
             return p;
         }
@@ -108,8 +108,8 @@ namespace NetEscapades.Configuration.Yaml
                 firstname: null
                 ";
 
-            var yamlConfigSource1 = new YamlConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml1) };
-            var yamlConfigSource2 = new YamlConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml2) };
+            var yamlConfigSource1 = new YamlFileConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml1) };
+            var yamlConfigSource2 = new YamlFileConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml2) };
 
             var configurationBuilder = new ConfigurationBuilder();
             configurationBuilder.Add(yamlConfigSource1);
@@ -142,7 +142,7 @@ namespace NetEscapades.Configuration.Yaml
         {
             var yaml = @"";
 
-            var yamlConfigSrc = new YamlConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml) };
+            var yamlConfigSrc = new YamlFileConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml) };
 
             var configurationBuilder = new ConfigurationBuilder();
             configurationBuilder.Add(yamlConfigSrc);
