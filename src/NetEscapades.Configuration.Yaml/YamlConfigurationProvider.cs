@@ -1,13 +1,16 @@
+using System;
+using System.IO;
 using Microsoft.Extensions.Configuration;
+using YamlDotNet.Core;
 
 namespace NetEscapades.Configuration.Yaml
 {
     /// <summary>
-    /// A YAML file based <see cref="YamlFileConfigurationProvider"/>.
+    /// A YAML file based <see cref="FileConfigurationProvider"/>.
     /// </summary>
-    public class YamlFileConfigurationProvider : FileConfigurationProvider
+    public class YamlConfigurationProvider : FileConfigurationProvider
     {
-        public YamlFileConfigurationProvider(YamlFileConfigurationSource source) : base(source) { }
+        public YamlConfigurationProvider(YamlConfigurationSource source) : base(source) { }
 
         public override void Load(Stream stream)
         {

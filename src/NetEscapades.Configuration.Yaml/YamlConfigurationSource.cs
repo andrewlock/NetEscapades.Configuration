@@ -3,14 +3,14 @@ using Microsoft.Extensions.Configuration;
 namespace NetEscapades.Configuration.Yaml
 {
     /// <summary>
-    /// A YAML file based <see cref="YamlFileConfigurationSource"/>.
+    /// A YAML file based <see cref="FileConfigurationSource"/>.
     /// </summary>
-    public class YamlFileConfigurationSource : FileConfigurationSource
+    public class YamlConfigurationSource : FileConfigurationSource
     {
         public override IConfigurationProvider Build(IConfigurationBuilder builder)
         {
             EnsureDefaults(builder);
-            return new YamlFileConfigurationProvider(this);
+            return new YamlConfigurationProvider(this);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace NetEscapades.Configuration.Yaml.Tests
                 - '11.12.13.14'
             ";
 
-            var yamlConfigSource = new YamlFileConfigurationProvider(new YamlFileConfigurationSource());
+            var yamlConfigSource = new YamlConfigurationProvider(new YamlConfigurationSource());
             yamlConfigSource.Load(TestStreamHelpers.StringToStream(yaml));
 
             Assert.Equal("1.2.3.4", yamlConfigSource.Get("ip:0"));
@@ -39,7 +39,7 @@ namespace NetEscapades.Configuration.Yaml.Tests
                   hidden: true
             ";
 
-            var yamlConfigSource = new YamlFileConfigurationProvider(new YamlFileConfigurationSource());
+            var yamlConfigSource = new YamlConfigurationProvider(new YamlConfigurationSource());
             yamlConfigSource.Load(TestStreamHelpers.StringToStream(yaml));
 
             Assert.Equal("1.2.3.4", yamlConfigSource.Get("ip:0:address"));
@@ -61,7 +61,7 @@ namespace NetEscapades.Configuration.Yaml.Tests
                   - '13.14.15.16'
                    ";
 
-            var yamlConfigSource = new YamlFileConfigurationProvider(new YamlFileConfigurationSource());
+            var yamlConfigSource = new YamlConfigurationProvider(new YamlConfigurationSource());
             yamlConfigSource.Load(TestStreamHelpers.StringToStream(yaml));
 
             Assert.Equal("1.2.3.4", yamlConfigSource.Get("ip:0:0"));
@@ -85,8 +85,8 @@ namespace NetEscapades.Configuration.Yaml.Tests
                 - '15.16.17.18'
             ";
 
-            var yamlConfigSource1 = new YamlFileConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml1) };
-            var yamlConfigSource2 = new YamlFileConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml2) };
+            var yamlConfigSource1 = new YamlConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml1) };
+            var yamlConfigSource2 = new YamlConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml2) };
 
             var configurationBuilder = new ConfigurationBuilder();
             configurationBuilder.Add(yamlConfigSource1);
@@ -114,8 +114,8 @@ namespace NetEscapades.Configuration.Yaml.Tests
                   1: '15.16.17.18'
             ";
 
-            var yamlConfigSource1 = new YamlFileConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml1) };
-            var yamlConfigSource2 = new YamlFileConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml2) };
+            var yamlConfigSource1 = new YamlConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml1) };
+            var yamlConfigSource2 = new YamlConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml2) };
 
             var configurationBuilder = new ConfigurationBuilder();
             configurationBuilder.Add(yamlConfigSource1);
@@ -143,8 +143,8 @@ namespace NetEscapades.Configuration.Yaml.Tests
                   3: '15.16.17.18'
             ";
 
-            var yamlConfigSource1 = new YamlFileConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml1) };
-            var yamlConfigSource2 = new YamlFileConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml2) };
+            var yamlConfigSource1 = new YamlConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml1) };
+            var yamlConfigSource2 = new YamlConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml2) };
 
             var configurationBuilder = new ConfigurationBuilder();
             configurationBuilder.Add(yamlConfigSource1);
@@ -168,7 +168,7 @@ namespace NetEscapades.Configuration.Yaml.Tests
               - '2'
             ";
 
-            var yamlConfigSource = new YamlFileConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml) };
+            var yamlConfigSource = new YamlConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml) };
 
             var configurationBuilder = new ConfigurationBuilder();
             configurationBuilder.Add(yamlConfigSource);
@@ -196,7 +196,7 @@ namespace NetEscapades.Configuration.Yaml.Tests
               '1text': 'f'
             ";
 
-            var yamlConfigSource = new YamlFileConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml) };
+            var yamlConfigSource = new YamlConfigurationSource { FileProvider = TestStreamHelpers.StringToFileProvider(yaml) };
 
             var configurationBuilder = new ConfigurationBuilder();
             configurationBuilder.Add(yamlConfigSource);
@@ -219,7 +219,7 @@ namespace NetEscapades.Configuration.Yaml.Tests
         {
             var yaml = "setting1: '1'\nsetting2: '2'";
 
-            var yamlConfigSource = new YamlFileConfigurationProvider(new YamlFileConfigurationSource());
+            var yamlConfigSource = new YamlConfigurationProvider(new YamlConfigurationSource());
             yamlConfigSource.Load(TestStreamHelpers.StringToStream(yaml, withBom: true));
 
             Assert.Equal("1", yamlConfigSource.Get("setting1"));

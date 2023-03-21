@@ -1,7 +1,7 @@
 namespace NetEscapades.Configuration.Yaml
 {
     /// <summary>
-    /// A YAML stream based <see cref="YamlStreamConfigurationSource"/>.
+    /// A YAML stream based <see cref="StreamConfigurationSource"/>.
     /// </summary>
     public class YamlStreamConfigurationSource : StreamConfigurationSource
     {
