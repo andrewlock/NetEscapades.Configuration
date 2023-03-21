@@ -1,18 +1,29 @@
+using System;
+using Microsoft.Extensions.Configuration;
+using YamlDotNet.Core;
+
 namespace NetEscapades.Configuration.Yaml
 {
     /// <summary>
-    /// A YAML stream based <see cref="StreamConfigurationProvider"/>.
+    /// A YAML stream provider based <see cref="ConfigurationProvider"/>.
     /// </summary>
-    public class YamlStreamConfigurationProvider : StreamConfigurationProvider
+    public class YamlStreamConfigurationProvider : ConfigurationProvider
     {
-        public YamlStreamConfigurationProvider(YamlStreamConfigurationSource source) : base(source) { }
+        private readonly YamlStreamConfigurationSource _source;
 
-        public override void Load(Stream stream)
+        public YamlStreamConfigurationProvider(YamlStreamConfigurationSource source)
+        {
+            _source = source ?? throw new ArgumentNullException(nameof(source));
+        }
+
+
+        public override void Load()
         {
             var parser = new YamlConfigurationStreamParser();
+
             try
             {
-                Data = parser.Parse(stream);
+                Data = parser.Parse(_source.Stream);
             }
             catch (YamlException e)
             {

@@ -1,13 +1,17 @@
+using System.IO;
+using Microsoft.Extensions.Configuration;
+
 namespace NetEscapades.Configuration.Yaml
 {
     /// <summary>
-    /// A YAML stream based <see cref="StreamConfigurationSource"/>.
+    /// A YAML stream source implements <see cref="IConfigurationSource"/>.
     /// </summary>
-    public class YamlStreamConfigurationSource : StreamConfigurationSource
+    public class YamlStreamConfigurationSource : IConfigurationSource
     {
-        public override IConfigurationProvider Build(IConfigurationBuilder builder)
+        public Stream Stream { get; set; }
+
+        public IConfigurationProvider Build(IConfigurationBuilder builder)
         {
-            EnsureDefaults(builder);
             return new YamlStreamConfigurationProvider(this);
         }
     }
