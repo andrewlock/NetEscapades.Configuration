@@ -13,9 +13,10 @@ builder.Services.UseConfigurationValidation();
 
 var secretsPath1 = Path.Combine(builder.Environment.ContentRootPath, "secrets1");
 var secretsPath2 = Path.Combine(builder.Environment.ContentRootPath, "secrets2");
+using var stream = File.OpenRead("appsettings.yml");
 builder.Configuration
     .AddYamlFile("appsettings.yml", optional: false)
-    .AddYamlStream(File.OpenRead("appsettings.yml"))
+    .AddYamlStream(stream)
     .AddKubeSecrets(secretsPath1, optional: false)
     .AddKubeSecrets(new PhysicalFileProvider(secretsPath2), optional: false);
 

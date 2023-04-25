@@ -31,8 +31,12 @@ namespace WebDemoProject3_0
         {
             var path1 = Path.Combine(context.HostingEnvironment.ContentRootPath, "secrets1");
             var path2 = Path.Combine(context.HostingEnvironment.ContentRootPath, "secrets2");
+            using var stream = File.OpenRead("appsettings.yml");
             builder
                 .AddYamlFile("appsettings.yml", optional: false)
+                .AddYamlStream(stream)
+                .Build();
+            builder
                 .AddKubeSecrets(path1, optional: false)
                 .AddKubeSecrets(new PhysicalFileProvider(path2), optional: false)
                 .AddRemoteSource(new Uri("http://localhost:5001/api/configuration"))
