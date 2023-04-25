@@ -2,9 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
 using NetEscapades.Configuration.Yaml;
+using YamlDotNet.Core;
 
 namespace Microsoft.Extensions.Configuration
 {
@@ -93,7 +95,7 @@ namespace Microsoft.Extensions.Configuration
             => builder.Add(configureSource);
 
         /// <summary>
-        /// Adds a YAML configuration source to <paramref name="builder"/>.
+        /// Adds a YAML configuration source to <paramref name="builder"/> that reads from a <see cref="Stream"/>.
         /// </summary>
         /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
         /// <param name="stream">The <see cref="Stream"/> to read the yaml configuration data from.</param>
@@ -105,7 +107,21 @@ namespace Microsoft.Extensions.Configuration
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            return builder.Add<YamlStreamConfigurationSource>(s => s.Stream = stream);
+            var data = ReadStream(stream);
+
+            return builder.Add<StaticConfigurationSource>(s => s.Data = data);
+
+            static IDictionary<string, string> ReadStream(Stream s)
+            {
+                try
+                {
+                    return new YamlConfigurationStreamParser().Parse(s);
+                }
+                catch (YamlException e)
+                {
+                    throw new FormatException(Resources.FormatError_YamlParseError(e.Message), e);
+                }
+            }
         }
     }
 }
