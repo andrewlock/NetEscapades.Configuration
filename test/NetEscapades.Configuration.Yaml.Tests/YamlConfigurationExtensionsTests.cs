@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
+using NetEscapades.Configuration.Tests.Common;
 using NetEscapades.Configuration.Yaml;
 using Xunit;
 
@@ -57,6 +58,23 @@ namespace NetEscapades.Configuration.Yaml
             new ConfigurationBuilder()
                 .AddYamlFile(path, optional: true)
                 .Build();
+        }
+        
+        [Fact]
+        public void AddYamlStream_ThrowIfIsNull()
+        {
+            // Act and Assert
+            Assert.Throws<ArgumentNullException>(() => new ConfigurationBuilder().AddYamlStream(null).Build());
+        }
+        
+        [Fact]
+        public void AddYamlStream_DoesNotThrowIfIsNotNull()
+        {
+            // Arrange
+            var stream = TestStreamHelpers.StringToStream("Test: test");
+            
+            // Act and Assert
+            new ConfigurationBuilder().AddYamlStream(stream).Build();
         }
     }
 }

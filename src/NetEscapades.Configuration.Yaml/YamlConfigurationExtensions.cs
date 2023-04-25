@@ -91,5 +91,21 @@ namespace Microsoft.Extensions.Configuration
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
         public static IConfigurationBuilder AddYamlFile(this IConfigurationBuilder builder, Action<YamlConfigurationSource> configureSource)
             => builder.Add(configureSource);
+
+        /// <summary>
+        /// Adds a YAML configuration source to <paramref name="builder"/>.
+        /// </summary>
+        /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
+        /// <param name="stream">The <see cref="Stream"/> to read the yaml configuration data from.</param>
+        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
+        public static IConfigurationBuilder AddYamlStream(this IConfigurationBuilder builder, Stream stream)
+        {
+            if (builder == null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
+            return builder.Add<YamlStreamConfigurationSource>(s => s.Stream = stream);
+        }
     }
 }

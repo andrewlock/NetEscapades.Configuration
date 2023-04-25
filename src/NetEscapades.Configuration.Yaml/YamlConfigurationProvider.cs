@@ -14,7 +14,7 @@ namespace NetEscapades.Configuration.Yaml
 
         public override void Load(Stream stream)
         {
-            var parser = new YamlConfigurationFileParser();
+            var parser = new YamlConfigurationStreamParser();
             try
             {
                 Data = parser.Parse(stream);
