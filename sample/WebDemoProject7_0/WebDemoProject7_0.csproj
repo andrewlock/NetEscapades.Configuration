@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\NetEscapades.Configuration.KubeSecrets\NetEscapades.Configuration.KubeSecrets.csproj" />
+    <ProjectReference Include="..\..\src\NetEscapades.Configuration.Remote\NetEscapades.Configuration.Remote.csproj" />
+    <ProjectReference Include="..\..\src\NetEscapades.Configuration.Yaml\NetEscapades.Configuration.Yaml.csproj" />
+    <ProjectReference Include="..\..\src\NetEscapades.Configuration.Validation\NetEscapades.Configuration.Validation.csproj" />
+  </ItemGroup>
+
+</Project>

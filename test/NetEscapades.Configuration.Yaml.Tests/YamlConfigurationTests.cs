@@ -9,12 +9,12 @@ using Xunit;
 
 namespace NetEscapades.Configuration.Yaml
 {
-    public class YamlConfigurationTest
+    public abstract class YamlConfigurationTest
     {
-        private YamlConfigurationProvider LoadProvider(string Yaml)
+        private ConfigurationProvider LoadProvider(string yaml)
         {
             var p = new YamlConfigurationProvider(new YamlConfigurationSource { Optional = true });
-            p.Load(TestStreamHelpers.StringToStream(Yaml));
+            p.Load(TestStreamHelpers.StringToStream(yaml));
             return p;
         }
 

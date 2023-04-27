@@ -74,7 +74,39 @@ namespace NetEscapades.Configuration.Yaml
             var stream = TestStreamHelpers.StringToStream("Test: test");
             
             // Act and Assert
-            new ConfigurationBuilder().AddYamlStream(stream).Build();
+            var builder = new ConfigurationBuilder().AddYamlStream(stream);
+            var config = builder.Build();
+            Assert.Equal("test", config["Test"]);
+        }
+
+        [Fact]
+        public void AddYamlStream_SupportsLoadingDataTwice()
+        {
+            // Arrange
+            var stream = TestStreamHelpers.StringToStream("Test: test");
+            
+            var builder = new ConfigurationBuilder()
+                .AddYamlStream(stream);
+            builder.Build();
+
+            var config = builder.Build();
+            Assert.Equal("test", config["Test"]);
+        }
+
+        [Fact]
+        public void AddYamlStream_SupportsDisposingStream()
+        {
+            // Arrange
+            var builder = new ConfigurationBuilder();
+            using (var stream = TestStreamHelpers.StringToStream("Test: test"))
+            {
+                builder.AddYamlStream(stream);
+            }
+            
+            builder.Build();
+
+            var config = builder.Build();
+            Assert.Equal("test", config["Test"]);
         }
     }
 }
