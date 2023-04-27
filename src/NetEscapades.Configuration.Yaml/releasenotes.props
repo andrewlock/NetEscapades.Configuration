@@ -1,9 +1,10 @@
 <Project>
   <PropertyGroup>
-    <PackageReleaseNotes Condition="'$(VersionPrefix)' == '3.0.0'">
+    <PackageReleaseNotes Condition="'$(VersionPrefix)' == '3.1.0'">
       <![CDATA[
 Features:
-* Update YamlDotNet to 13.0.1 (#74)
+* Add support for loading YAML configuration from a Stream instead of a File (#76, #77)
+  Note that the Stream will be read only once, and will not be disposed.
 
 ]]>
     </PackageReleaseNotes>
