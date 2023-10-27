@@ -1,17 +1,30 @@
 # NetEscapades.Configuration
 
-[![NuGet][yaml-nuget-badge]][yaml-nuget] 
-[![NuGet][remote-nuget-badge]][remote-nuget] 
-[![NuGet][vault-nuget-badge]][vault-nuget] 
+- [![NuGet][yaml-nuget-badge]][yaml-nuget] [![][yaml-nuget-downloads]][yaml-nuget]
+- [![NuGet][remote-nuget-badge]][remote-nuget] [![Downloads][remote-nuget-downloads]][remote-nuget]
+- [![NuGet][vault-nuget-badge]][vault-nuget] [![Downloads][vault-nuget-downloads]][vault-nuget]
+- [![NuGet][validation-nuget-badge]][validation-nuget] [![Downloads][validation-nuget-downloads]][validation-nuget]
+- [![NuGet][kubesecrets-nuget-badge]][kubesecrets-nuget] [![Downloads][kubesecrets-nuget-downloads]][kubesecrets-nuget]
 
 [yaml-nuget]: https://www.nuget.org/packages/NetEscapades.Configuration.Yaml/
 [yaml-nuget-badge]: https://img.shields.io/nuget/v/NetEscapades.Configuration.Yaml.svg?label=NetEscapades.Configuration.Yaml
+[yaml-nuget-downloads]: https://img.shields.io/nuget/dt/NetEscapades.Configuration.Yaml.svg?label=downloads&color=007edf&logo=nuget
 
 [remote-nuget]: https://www.nuget.org/packages/NetEscapades.Configuration.Remote/
 [remote-nuget-badge]: https://img.shields.io/nuget/v/NetEscapades.Configuration.Remote.svg?label=NetEscapades.Configuration.Remote
+[remote-nuget-downloads]: https://img.shields.io/nuget/dt/NetEscapades.Configuration.Remote.svg?label=downloads&color=007edf&logo=nuget
 
 [vault-nuget]: https://www.nuget.org/packages/NetEscapades.Configuration.Vault/
 [vault-nuget-badge]: https://img.shields.io/nuget/v/NetEscapades.Configuration.Vault.svg?label=NetEscapades.Configuration.Vault
+[vault-nuget-downloads]: https://img.shields.io/nuget/dt/NetEscapades.Configuration.Vault.svg?label=downloads&color=007edf&logo=nuget
+
+[validation-nuget]: https://www.nuget.org/packages/NetEscapades.Configuration.Validation/
+[validation-nuget-badge]: https://img.shields.io/nuget/v/NetEscapades.Configuration.Validation.svg?label=NetEscapades.Configuration.Validation
+[validation-nuget-downloads]: https://img.shields.io/nuget/dt/NetEscapades.Configuration.Validation.svg?label=downloads&color=007edf&logo=nuget
+
+[kubesecrets-nuget]: https://www.nuget.org/packages/NetEscapades.Configuration.KubeSecrets/
+[kubesecrets-nuget-badge]: https://img.shields.io/nuget/v/NetEscapades.Configuration.KubeSecrets.svg?label=NetEscapades.Configuration.KubeSecrets
+[kubesecrets-nuget-downloads]: https://img.shields.io/nuget/dt/NetEscapades.Configuration.KubeSecrets.svg?label=downloads&color=007edf&logo=nuget
 
 Additional configuration providers to use with ASP.NET Core `Microsoft.Extensions.Configuration`.
 
