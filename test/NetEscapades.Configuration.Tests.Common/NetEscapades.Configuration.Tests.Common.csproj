@@ -15,4 +15,10 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System.Threading.Tasks" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Directory.Build.props">
+      <Link>Directory.Build.props</Link>
+    </None>
+  </ItemGroup>
 </Project>

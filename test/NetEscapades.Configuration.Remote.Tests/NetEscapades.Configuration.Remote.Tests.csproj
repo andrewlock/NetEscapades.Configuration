@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net461;netcoreapp2.0;netcoreapp3.0;net5.0;net6.0</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netcoreapp2.0;netcoreapp3.0;net5.0;net6.0</TargetFrameworks>
+
+    <TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net461;$(TargetFrameworks)</TargetFrameworks>
     <AssemblyName>NetEscapades.Configuration.Remote.Tests</AssemblyName>
     <PackageId>NetEscapades.Configuration.Remote.Tests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
@@ -16,13 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\NetEscapades.Configuration.Tests.Common\NetEscapades.Configuration.Tests.Common.csproj" />
     <ProjectReference Include="..\..\src\NetEscapades.Configuration.Remote\NetEscapades.Configuration.Remote.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
-    <PackageReference Include="xunit" Version="2.3.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0" />
-    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.0" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
