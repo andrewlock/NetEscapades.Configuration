@@ -1,132 +1,133 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
-using System.Linq;
 using Microsoft.Extensions.Configuration;
-using YamlDotNet.RepresentationModel;
+using YamlDotNet.Core;
+using YamlDotNet.Serialization;
 
 namespace NetEscapades.Configuration.Yaml
 {
     internal class YamlConfigurationStreamParser
     {
+        private readonly Action<DeserializerBuilder> _configureDeserializer;
         private readonly IDictionary<string, string> _data = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         private readonly Stack<string> _context = new Stack<string>();
-        private string _currentPath;
+
+        public YamlConfigurationStreamParser(Action<DeserializerBuilder> configureDeserializer)
+        {
+            _configureDeserializer = configureDeserializer;
+        }
 
         public IDictionary<string, string> Parse(Stream input)
         {
             _data.Clear();
             _context.Clear();
 
-            // https://dotnetfiddle.net/rrR2Bb
-            var yaml = new YamlStream();
-            yaml.Load(new StreamReader(input, detectEncodingFromByteOrderMarks: true));
+            using var reader = new StreamReader(input, detectEncodingFromByteOrderMarks: true);
+            var parser = new Parser(reader);
+            var document = CreateDeserializer().Deserialize(parser);
 
-            if (yaml.Documents.Any())
+            if (document is not IDictionary<object, object> documentDict)
             {
-                var mapping = (YamlMappingNode)yaml.Documents[0].RootNode;
-
-                // The document node is a mapping node
-                VisitYamlMappingNode(mapping);
+                throw new FormatException("Root document must be a dictionary, but got " + document?.GetType().FullName);
             }
+
+            VisitMap(documentDict);
 
             return _data;
         }
 
-        private void VisitYamlNodePair(KeyValuePair<YamlNode, YamlNode> yamlNodePair)
+        private IDeserializer CreateDeserializer()
         {
-            var context = ((YamlScalarNode)yamlNodePair.Key).Value;
-            VisitYamlNode(context, yamlNodePair.Value);
+            var builder = new DeserializerBuilder();
+            builder.WithAttemptingUnquotedStringTypeDeserialization();
+            _configureDeserializer?.Invoke(builder);
+            return builder.Build();
         }
 
-        private void VisitYamlNode(string context, YamlNode node)
+        private void VisitMap(IDictionary<object, object> map)
         {
-            if (node is YamlScalarNode scalarNode)
+            var isEmpty = true;
+
+            foreach (var entry in map)
             {
-                VisitYamlScalarNode(context, scalarNode);
+                isEmpty = false;
+                EnterContext(entry.Key.ToString()!);
+                Visit(entry.Value);
+                ExitContext();
             }
-            if (node is YamlMappingNode mappingNode)
+
+            SetNullIfElementIsEmpty(isEmpty);
+        }
+
+        private void Visit(object value)
+        {
+            switch (value)
             {
-                VisitYamlMappingNode(context, mappingNode);
-            }
-            if (node is YamlSequenceNode sequenceNode)
-            {
-                VisitYamlSequenceNode(context, sequenceNode);
+                case IDictionary<object, object> map:
+                    VisitMap(map);
+                    break;
+                case IList<object> sequence:
+                    VisitSequence(sequence);
+                    break;
+                default:
+                    VisitScalar(value);
+                    break;
             }
         }
 
-        private void VisitYamlScalarNode(string context, YamlScalarNode yamlValue)
+        private void VisitScalar(object scalar)
         {
-            //a node with a single 1-1 mapping 
-            EnterContext(context);
-            var currentKey = _currentPath;
-
+            var currentKey = _context.Peek();
             if (_data.ContainsKey(currentKey))
             {
                 throw new FormatException(Resources.FormatError_KeyIsDuplicated(currentKey));
             }
 
-            _data[currentKey] = IsNullValue(yamlValue) ? null : yamlValue.Value;
-            ExitContext();
-        }
-
-        private void VisitYamlMappingNode(YamlMappingNode node)
-        {
-            foreach (var yamlNodePair in node.Children)
+            _data[currentKey] = scalar switch
             {
-                VisitYamlNodePair(yamlNodePair);
-            }
+                null => "",
+                bool boolean => boolean ? "true" : "false",
+                string str => str,
+                // the only remaining type is a number, but there is not a common base class "Number". the best thing to use is IFormattable, which is also used to ensure numbers are formatted correctly
+                IFormattable formattable => formattable.ToString("G", CultureInfo.InvariantCulture),
+                _ => throw new FormatException($"Unsupported scalar type: {scalar.GetType().Name}")
+            };
         }
 
-        private void VisitYamlMappingNode(string context, YamlMappingNode yamlValue)
+        private void VisitSequence(IList<object> sequence)
         {
-            //a node with an associated sub-document
-            EnterContext(context);
+            var i = 0;
 
-            VisitYamlMappingNode(yamlValue);
-
-            ExitContext();
-        }
-
-        private void VisitYamlSequenceNode(string context, YamlSequenceNode yamlValue)
-        {
-            //a node with an associated list
-            EnterContext(context);
-
-            VisitYamlSequenceNode(yamlValue);
-
-            ExitContext();
-        }
-
-        private void VisitYamlSequenceNode(YamlSequenceNode node)
-        {
-            for (int i = 0; i < node.Children.Count; i++)
+            for (; i < sequence.Count; i++)
             {
-                VisitYamlNode(i.ToString(), node.Children[i]);
+                EnterContext(i.ToString(CultureInfo.InvariantCulture));
+                Visit(sequence[i]);
+                ExitContext();
             }
+
+            SetNullIfElementIsEmpty(i == 0);
         }
 
         private void EnterContext(string context)
         {
-            _context.Push(context);
-            _currentPath = ConfigurationPath.Combine(_context.Reverse());
+            _context.Push(_context.Count > 0 ?
+                _context.Peek() + ConfigurationPath.KeyDelimiter + context :
+                context);
         }
 
         private void ExitContext()
         {
             _context.Pop();
-            _currentPath = ConfigurationPath.Combine(_context.Reverse());
         }
 
-        private bool IsNullValue(YamlScalarNode yamlValue)
+        private void SetNullIfElementIsEmpty(bool isEmpty)
         {
-            return yamlValue.Style == YamlDotNet.Core.ScalarStyle.Plain
-                && (
-                    yamlValue.Value == "~"
-                    || yamlValue.Value == "null"
-                    || yamlValue.Value == "Null"
-                    || yamlValue.Value == "NULL"
-                );
+            if (isEmpty && _context.Count > 0)
+            {
+                _data[_context.Peek()] = null;
+            }
         }
     }
 }
