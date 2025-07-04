@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
+using System.Globalization;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using NetEscapades.Configuration.Tests.Common;
@@ -54,6 +55,43 @@ namespace NetEscapades.Configuration.Yaml
         ";
             var yamlConfigSrc = LoadProvider(yaml);
             Assert.Equal(string.Empty, yamlConfigSrc.Get("name"));
+        }
+
+        [Fact]
+        public void LoadMethodCanHandleBooleanValue()
+        {
+            var yaml = @"
+                boolean: true
+                boolean2: false
+                boolean3: yes
+                boolean4: no
+            ";
+            var yamlConfigSrc = LoadProvider(yaml);
+            Assert.Equal("true", yamlConfigSrc.Get("boolean"));
+            Assert.Equal("false", yamlConfigSrc.Get("boolean2"));
+            Assert.Equal("true", yamlConfigSrc.Get("boolean3"));
+            Assert.Equal("false", yamlConfigSrc.Get("boolean4"));
+        }
+
+        [Fact]
+        public void LoadMethodCanHandleNumberValueInDifferentCultures()
+        {
+            CultureInfo.CurrentCulture = new CultureInfo("fr-FR");
+            var yaml = @"
+                number: 12345.6789
+                ";
+            var yamlConfigSrc = LoadProvider(yaml);
+            Assert.Equal("12345.6789", yamlConfigSrc.Get("number"));
+        }
+
+        [Fact]
+        public void LoadMethodCanHandleYamlTags()
+        {
+            var yaml = @"
+                number: !int 123_456_789
+                ";
+            var yamlConfigSrc = LoadProvider(yaml);
+            Assert.Equal("123456789", yamlConfigSrc.Get("number"));
         }
 
         [Fact]

@@ -10,11 +10,16 @@ namespace NetEscapades.Configuration.Yaml
     /// </summary>
     public class YamlConfigurationProvider : FileConfigurationProvider
     {
-        public YamlConfigurationProvider(YamlConfigurationSource source) : base(source) { }
+        private readonly YamlConfigurationSource _source;
+
+        public YamlConfigurationProvider(YamlConfigurationSource source) : base(source)
+        {
+            _source = source;
+        }
 
         public override void Load(Stream stream)
         {
-            var parser = new YamlConfigurationStreamParser();
+            var parser = new YamlConfigurationStreamParser(_source.ConfigureDeserializer);
             try
             {
                 Data = parser.Parse(stream);

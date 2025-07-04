@@ -1,4 +1,6 @@
+using System;
 using Microsoft.Extensions.Configuration;
+using YamlDotNet.Serialization;
 
 namespace NetEscapades.Configuration.Yaml
 {
@@ -7,6 +9,8 @@ namespace NetEscapades.Configuration.Yaml
     /// </summary>
     public class YamlConfigurationSource : FileConfigurationSource
     {
+        public Action<DeserializerBuilder> ConfigureDeserializer { get; set; }
+
         public override IConfigurationProvider Build(IConfigurationBuilder builder)
         {
             EnsureDefaults(builder);
