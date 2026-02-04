@@ -28,96 +28,53 @@ on:
       - '*'
 
 jobs:
-  ubuntu-latest:
-    name: ubuntu-latest
-    runs-on: ubuntu-latest
+  build-and-test:
+    strategy:
+      matrix:
+        include:
+          - os: windows
+            vm: windows-latest
+          - os: linux
+            vm: ubuntu-latest
+          - os: macos
+            vm: macos-15
+    env:
+      MSBuildEnableWorkloadResolver: false
+      DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: "true"
+    name: ${{ matrix.os}}
+    runs-on: ${{ matrix.vm}}
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-dotnet@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
-            2.1.x
-            3.1.x
-            5.0.x
-            6.0.x
-            7.0.x
+            10.0.x
+            9.0.x
             8.0.x
+            7.0.x
+            6.0.x
+            3.1.x
+            2.1.x
+
+      # - run: dotnet new globaljson --sdk-version "8.0.402" --force
       - name: Cache .nuke/temp, ~/.nuget/packages
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             .nuke/temp
             ~/.nuget/packages
           key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
-      - name: Run './build.cmd Clean Test PushToNuGet'
-        run: ./build.cmd Clean Test PushToNuGet
+
+      - name: Run './build.cmd Clean Test TestPackage PushToNuGet
+        run: ./build.cmd Clean Test TestPackage PushToNuGet
         env:
-          GithubToken: ${{ secrets.GITHUB_TOKEN }}
-          NuGetToken: ${{ secrets.NUGET_TOKEN }}
-          MSBuildEnableWorkloadResolver: false
-      - uses: actions/upload-artifact@v1
+          NuGetToken: ${{ secrets.NUGET_TOKEN || 'NOT_SET'}}
+
+      - uses: actions/upload-artifact@v4
         with:
-          name: artifacts
-          path: artifacts
-  windows-latest:
-    name: windows-latest
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-dotnet@v3
+          name: packages-${{ matrix.os}}
+          path: artifacts/packages
+      - uses: actions/upload-artifact@v4
         with:
-          dotnet-version: |
-            2.1.x
-            3.1.x
-            5.0.x
-            6.0.x
-            7.0.x
-            8.0.x
-      - name: Cache .nuke/temp, ~/.nuget/packages
-        uses: actions/cache@v2
-        with:
-          path: |
-            .nuke/temp
-            ~/.nuget/packages
-          key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
-      - name: Run './build.cmd Clean Test PushToNuGet'
-        run: ./build.cmd Clean Test PushToNuGet
-        env:
-          GithubToken: ${{ secrets.GITHUB_TOKEN }}
-          NuGetToken: ${{ secrets.NUGET_TOKEN }}
-          MSBuildEnableWorkloadResolver: false
-      - uses: actions/upload-artifact@v1
-        with:
-          name: artifacts
-          path: artifacts
-  macOS-latest:
-    name: macOS-latest
-    runs-on: macOS-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: |
-            2.1.x
-            3.1.x
-            5.0.x
-            6.0.x
-            7.0.x
-            8.0.x
-      - name: Cache .nuke/temp, ~/.nuget/packages
-        uses: actions/cache@v2
-        with:
-          path: |
-            .nuke/temp
-            ~/.nuget/packages
-          key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
-      - name: Run './build.cmd Clean Test PushToNuGet'
-        run: ./build.cmd Clean Test PushToNuGet
-        env:
-          GithubToken: ${{ secrets.GITHUB_TOKEN }}
-          NuGetToken: ${{ secrets.NUGET_TOKEN }}
-          MSBuildEnableWorkloadResolver: false
-      - uses: actions/upload-artifact@v1
-        with:
-          name: artifacts
-          path: artifacts
+          name: results-${{ matrix.os}}
+          path: artifacts/results
