@@ -65,8 +65,8 @@ jobs:
             ~/.nuget/packages
           key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
 
-      - name: Run './build.cmd Clean Test TestPackage PushToNuGet
-        run: ./build.cmd Clean Test TestPackage PushToNuGet
+      - name: Run './build.cmd Clean Test PushToNuGet
+        run: ./build.cmd Clean Test PushToNuGet
         env:
           NuGetToken: ${{ secrets.NUGET_TOKEN || 'NOT_SET'}}
 
