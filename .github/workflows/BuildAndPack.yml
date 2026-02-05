@@ -37,7 +37,7 @@ jobs:
           - os: linux
             vm: ubuntu-latest
           - os: macos
-            vm: macos-15
+            vm: macos-15-intel
     env:
       MSBuildEnableWorkloadResolver: false
       DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: "true"
