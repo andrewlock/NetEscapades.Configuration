@@ -36,7 +36,6 @@ namespace NetEscapades.Configuration.Yaml
         private void VisitYamlNodePair(KeyValuePair<YamlNode, YamlNode> yamlNodePair)
         {
             var context = yamlNodePair.Key.ToString();
-
             VisitYamlNode(context, yamlNodePair.Value);
         }
 
