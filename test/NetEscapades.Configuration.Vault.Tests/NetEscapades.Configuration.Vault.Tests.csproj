@@ -20,7 +20,7 @@
     <ProjectReference Include="..\NetEscapades.Configuration.Tests.Common\NetEscapades.Configuration.Tests.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Threading.Tasks" />
   </ItemGroup>

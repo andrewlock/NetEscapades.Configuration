@@ -1,6 +1,7 @@
 <Project>
   <PropertyGroup>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <NuGetAudit>false</NuGetAudit>
   </PropertyGroup>
 
   <ItemGroup>

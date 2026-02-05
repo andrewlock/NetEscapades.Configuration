@@ -20,7 +20,7 @@
     <ProjectReference Include="..\..\src\NetEscapades.Configuration.Remote\NetEscapades.Configuration.Remote.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
     <Reference Include="System.Threading.Tasks" />
   </ItemGroup>
 </Project>
