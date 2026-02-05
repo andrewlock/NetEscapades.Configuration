@@ -1,7 +1,6 @@
 using Nuke.Common;
 using Nuke.Common.CI;
 using Nuke.Common.CI.GitHubActions;
-using Nuke.Common.Execution;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
@@ -11,20 +10,7 @@ using static Nuke.Common.EnvironmentInfo;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
-[CheckBuildProjectConfigurations]
 [ShutdownDotNetAfterServerBuild]
-[GitHubActions("BuildAndPack",
-    GitHubActionsImage.UbuntuLatest,
-    GitHubActionsImage.WindowsLatest,
-    GitHubActionsImage.MacOsLatest,
-    ImportGitHubTokenAs = nameof(GithubToken),
-    OnPushTags = new [] {"*"},
-    OnPushBranches = new[] {"master", "main"},
-    OnPullRequestBranches = new[] {"*"},
-    AutoGenerate = false,
-    ImportSecrets = new[] {nameof(NuGetToken)},
-    InvokedTargets = new[] {nameof(Clean), nameof(Test), nameof(PushToNuGet)}
-)]
 class Build : NukeBuild
 {
     /// Support plugins are available for:
@@ -49,19 +35,20 @@ class Build : NukeBuild
     [Parameter] readonly AbsolutePath PackagesDirectory = RootDirectory / "packages";
 
     const string NugetOrgUrl = "https://api.nuget.org/v3/index.json";
-    bool IsTag => GitHubActions.Instance?.GitHubRef?.StartsWith("refs/tags/") ?? false;
+    bool IsTag => GitHubActions.Instance?.Ref?.StartsWith("refs/tags/") ?? false;
 
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>
         {
-            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
+            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(x => x.CreateOrCleanDirectory());
+            TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(x => x.CreateOrCleanDirectory());
             if (!string.IsNullOrEmpty(PackagesDirectory))
             {
-                EnsureCleanDirectory(PackagesDirectory);
+                PackagesDirectory.CreateOrCleanDirectory();
             }
-            EnsureCleanDirectory(ArtifactsDirectory);
+
+            ArtifactsDirectory.CreateOrCleanDirectory();
         });
 
     Target Restore => _ => _
